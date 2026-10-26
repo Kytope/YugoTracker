@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Caos Tracker</title>
+  <meta name="description" content="Estadísticas de ARAM: Caos del grupo">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-row">
+      <a class="brand" href="#/"><span class="brand-mark" aria-hidden="true"></span>Caos Tracker</a>
+      <div class="tools">
+        <span id="updated" class="muted"></span>
+        <select id="period" aria-label="Periodo"></select>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#/" data-view="home">Jugadores</a>
+      <a href="#/partidas" data-view="partidas">Partidas</a>
+      <a href="#/sinergias" data-view="sinergias">Sinergias</a>
+      <a href="#/campeones" data-view="campeones">Campeones</a>
+      <a href="#/aumentos" data-view="aumentos">Aumentos</a>
+      <a href="#/logros" data-view="logros">Logros</a>
+      <a href="#/records" data-view="records">Récords</a>
+    </nav>
+  </header>
+  <main id="app"><div class="loading">Cargando el caos…</div></main>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
