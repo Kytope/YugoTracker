@@ -257,7 +257,7 @@ a.player:hover b { text-decoration: underline; text-underline-offset: 2px; }
 .scoreboard[hidden] { display: none; }
 .team { border-radius: var(--radius-sm); background: oklch(0 0 0 / 0.18); padding: 4px 6px 6px; }
 /* Columnas: campeón · nombre · KDA · daño · oro · aumentos · ítems */
-.sb-row { display: grid; grid-template-columns: 24px minmax(120px, 1fr) 84px 104px 48px 78px 130px; align-items: center; column-gap: 12px; padding: 4px 6px; border-radius: 4px; font-size: 13px; }
+.sb-row { display: grid; grid-template-columns: 24px minmax(120px, 1fr) 84px 52px 104px 48px 78px 130px; align-items: center; column-gap: 12px; padding: 4px 6px; border-radius: 4px; font-size: 13px; }
 .team-h { font-size: 12px; color: var(--muted); padding-top: 6px; padding-bottom: 6px; }
 .team-h .sb-res { grid-column: 1 / 3; }
 .team.win .sb-res { color: var(--win); }
@@ -275,7 +275,7 @@ a.player:hover b { text-decoration: underline; text-underline-offset: 2px; }
 .sb-dmg .bar { display: block; width: 100%; height: 5px; border-radius: 3px; background: oklch(0 0 0 / 0.3); overflow: hidden; }
 .sb-dmg .bar i { display: block; height: 100%; border-radius: 3px; background: var(--accent); }
 .sb-gold { text-align: center; font-size: 12px; color: var(--text-2); font-variant-numeric: tabular-nums; }
-.team-h .sb-gold { color: var(--muted); grid-column: 5 / -1; text-align: left; }
+.team-h .sb-gold { color: var(--muted); grid-column: 6 / -1; text-align: left; }
 .more {
   display: block; width: 100%; margin-top: 2px; padding: 10px; border-radius: var(--radius);
   border: 1px solid var(--line-soft); background: var(--surface); cursor: pointer; font-weight: 500; color: var(--text-2);
@@ -380,7 +380,7 @@ a.player:hover b { text-decoration: underline; text-underline-offset: 2px; }
   .avatar.xl { width: 56px; height: 56px; }
   .match-head { flex-wrap: wrap; gap: 10px 14px; }
   .match-head .items, .match-head .augs, .mates { display: none; }
-  .sb-row { grid-template-columns: 24px minmax(0, 1fr) 64px 72px; column-gap: 8px; }
+  .sb-row { grid-template-columns: 24px minmax(0, 1fr) 60px 44px 64px; column-gap: 8px; }
   .sb-row .items, .sb-row .augs, .sb-row .sb-gold { display: none; }
 }
 
@@ -456,3 +456,20 @@ a.champ-cell:hover { color: var(--text); text-decoration: underline; text-underl
   .gsearch { order: 3; flex-basis: 100%; margin-left: 0; }
   .gsearch kbd { display: none; }
 }
+
+/* ---------- Puntaje y medallas ---------- */
+.score { font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text); }
+.score.hi { color: var(--gold); }
+.score.mid { color: var(--text); }
+.score.lo { color: var(--muted); }
+.medal {
+  display: inline-block; font-size: 10px; font-weight: 800; letter-spacing: 0.04em; line-height: 1;
+  padding: 3px 5px; border-radius: 4px; vertical-align: middle;
+}
+.medal.mvp { background: var(--gold); color: oklch(0.22 0.04 85); }
+.medal.ace { background: color-mix(in oklch, var(--prism) 30%, transparent); color: var(--prism); border: 1px solid color-mix(in oklch, var(--prism) 55%, transparent); }
+.mscore { min-width: 52px; gap: 3px; }
+.mscore .medal { margin-top: 1px; }
+.sb-score { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 13px; }
+.team-h .sb-score { font-size: 12px; }
+.mate .medal { margin-left: -2px; }

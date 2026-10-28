@@ -33,6 +33,14 @@ export const moreButton = (total: number): string =>
 
 export const empty = (text = 'Sin partidas en este periodo.'): string => `<p class="empty">${text}</p>`;
 
+/** Medalla MVP/ACE de una partida. */
+export const medal = (badge: 'MVP' | 'ACE' | null): string =>
+  badge ? `<span class="medal ${badge.toLowerCase()}" title="${badge === 'MVP' ? 'Mejor puntaje del equipo ganador' : 'Mejor puntaje del equipo perdedor'}">${badge}</span>` : '';
+
+/** Puntaje 0–10 con color según el tramo. */
+export const scoreTag = (score: number): string =>
+  `<b class="score ${score >= 7 ? 'hi' : score >= 5 ? 'mid' : score < 3 ? 'lo' : ''}">${score.toFixed(1)}</b>`;
+
 export function multiBadge(p: Participant): string {
   const t = p.pentas ? 'PENTA' : p.quadras ? 'QUADRA' : p.triples ? 'TRIPLE' : '';
   return t ? `<span class="badge ${t.toLowerCase()}">${t}</span>` : '';

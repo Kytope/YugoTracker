@@ -6,7 +6,7 @@ import { activitySpan, byDay, byHour } from '../stats/timeline';
 import type { Friend, Game, Rec } from '../types';
 import { champIcon, champName, profileIcon } from '../ui/assets';
 import { chart, rankingBars, winLossBars } from '../ui/charts';
-import { segmented, stat } from '../ui/components';
+import { scoreTag, segmented, stat } from '../ui/components';
 import { esc, longDate, pct, short, shortDate, wrClass } from '../ui/format';
 
 interface Metric {
@@ -16,6 +16,8 @@ interface Metric {
 }
 
 const COMPARE: Record<string, Metric> = {
+  score: { label: 'Puntaje', value: (s) => s.avgScore, fmt: (v) => v.toFixed(1) },
+  mvps: { label: 'MVPs', value: (s) => s.mvps, fmt: (v) => String(Math.round(v)) },
   wr: { label: 'Winrate', value: (s) => s.wr, fmt: pct },
   kda: { label: 'KDA', value: (s) => s.kda, fmt: (v) => v.toFixed(2) },
   dpm: { label: 'Daño/min', value: (s) => s.dpm, fmt: (v) => String(Math.round(v)) },
@@ -61,7 +63,7 @@ export function viewHome(ms: Game[]): string {
         <table class="tbl board">
           <thead><tr>
             <th class="num">#</th><th>Jugador</th><th>Main</th><th class="num">Partidas</th><th>Winrate</th>
-            <th>KDA</th><th class="num">Daño</th><th>Últimas 10</th>
+            <th>KDA</th><th class="num">Puntaje</th><th class="num">MVP</th><th class="num">Daño</th><th>Últimas 10</th>
           </tr></thead>
           <tbody>${rows.map(({ f, recs }, i) => boardRow(i + 1, f, recs)).join('')}</tbody>
         </table>
@@ -127,7 +129,7 @@ function boardRow(rank: number, f: Friend, recs: Rec[]): string {
       <span><b>${esc(f.alias)}</b><small>${esc(f.gameName)}#${esc(f.tagLine)}</small></span>
     </a>`;
   if (!recs.length) {
-    return `<tr class="dim"><td class="num muted">${rank}</td><td>${id}</td><td colspan="6" class="muted">Sin partidas en este periodo</td></tr>`;
+    return `<tr class="dim"><td class="num muted">${rank}</td><td>${id}</td><td colspan="8" class="muted">Sin partidas en este periodo</td></tr>`;
   }
   const s = agg(recs);
   const main = byChamp(recs)[0];
@@ -139,6 +141,8 @@ function boardRow(rank: number, f: Friend, recs: Rec[]): string {
     <td class="num">${s.games}</td>
     <td><span class="wr"><b class="${wrClass(s.wr)}">${pct(s.wr)}</b><i class="wr-bar"><i style="width:${s.wr * 100}%"></i></i><small class="muted">${s.wins}V ${s.losses}D</small></span></td>
     <td><b>${s.kda.toFixed(2)}</b> <small class="muted">${s.avgK.toFixed(1)} / ${s.avgD.toFixed(1)} / ${s.avgA.toFixed(1)}</small></td>
+    <td class="num">${scoreTag(s.avgScore)}</td>
+    <td class="num">${s.mvps || '<span class="muted">—</span>'}</td>
     <td class="num">${short(s.avgDmg)}</td>
     <td><span class="form">${recs.slice(0, 10).map((r) => `<i class="${r.p.win ? 'w' : 'l'}"></i>`).join('')}</span>${st && st.n >= 3 ? `<span class="streak ${st.win ? 'w' : 'l'}">${st.n}${st.win ? 'V' : 'D'}</span>` : ''}</td>
   </tr>`;

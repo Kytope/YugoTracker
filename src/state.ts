@@ -15,8 +15,8 @@ export const state = {
   champSort: 'games',
   augSort: 'n',
   /** Métrica de la comparativa del inicio y del gráfico de rendimiento del perfil. */
-  compareMetric: 'dpm',
-  perfMetric: 'dmg',
+  compareMetric: 'score',
+  perfMetric: 'score',
   /** Filtros de la página de partidas y textos de búsqueda de las tablas. */
   matchFilter: { ...EMPTY_FILTER } as MatchFilter,
   champQ: '',

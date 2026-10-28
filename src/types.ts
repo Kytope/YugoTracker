@@ -1,6 +1,7 @@
 // Tipos de la página: los datos crudos de shared/types enriquecidos con los amigos.
 
 import type { Match, Participant, PlayerInfo } from './shared/types';
+import type { Badge } from './stats/mvp';
 
 export interface Friend extends PlayerInfo {
   slug: string;
@@ -12,6 +13,10 @@ export interface Friend extends PlayerInfo {
 /** Un participante de una partida, marcado si es del grupo. */
 export interface GamePlayer extends Participant {
   friend: Friend | null;
+  /** Puntaje de desempeño 0–10 dentro de su partida (stats/mvp.ts). */
+  score: number;
+  /** MVP = mejor del equipo ganador; ACE = mejor del perdedor. */
+  badge: Badge | null;
 }
 
 /** Participante que sí es del grupo. */

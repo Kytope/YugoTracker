@@ -1,6 +1,7 @@
 import { COLORS } from '../config';
 import type { MatchData } from '../shared/types';
 import type { Friend, FriendPlayer, Game, GamePlayer } from '../types';
+import { scoreMatch } from '../stats/mvp';
 import { nameKey, slugify } from '../ui/format';
 
 export async function getJSON<T>(url: string): Promise<T> {
@@ -33,9 +34,12 @@ export function prepare(data: MatchData): { friends: Friend[]; matches: Game[] }
   const matches: Game[] = data.matches
     .filter((m) => !m.remake)
     .map((m) => {
-      const participants: GamePlayer[] = m.participants.map((p) => ({
+      const scores = scoreMatch(m.participants);
+      const participants: GamePlayer[] = m.participants.map((p, i) => ({
         ...p,
         friend: byPuuid.get(p.puuid) ?? byName.get(nameKey(p.name, p.tag)) ?? null,
+        score: scores[i].score,
+        badge: scores[i].badge,
       }));
       const mine = participants.filter((p): p is FriendPlayer => p.friend !== null);
       return { ...m, participants, mine };

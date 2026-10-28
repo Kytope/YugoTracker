@@ -20,6 +20,7 @@ interface PerfMetric {
 }
 
 const PERF: Record<string, PerfMetric> = {
+  score: { label: 'Puntaje', value: (p) => p.score, fmt: (v) => v.toFixed(1) },
   dmg: { label: 'Daño', value: (p) => p.dmg, fmt: short },
   kda: { label: 'KDA', value: (p) => (p.k + p.a) / Math.max(1, p.d), fmt: (v) => v.toFixed(2) },
   k: { label: 'Kills', value: (p) => p.k, fmt: (v) => String(Math.round(v * 10) / 10) },
@@ -84,6 +85,8 @@ function overview(f: Friend, ms: Game[]): string {
           ${stat('Daño/min', Math.round(s.dpm), `${short(s.avgDmg)} por partida`)}
           ${stat('Mejor racha', longestRun(recs), 'victorias seguidas')}
           ${stat('Multikills', s.pentas + s.quadras, `${s.pentas} pentas · ${s.quadras} quadras`)}
+          ${stat('Puntaje promedio', s.avgScore.toFixed(1), 'de 10 por partida')}
+          ${stat('Medallas', `${s.mvps} <small class="muted">MVP</small> · ${s.aces} <small class="muted">ACE</small>`)}
         </div>
         ${buddy ? `<div class="buddy"><span class="muted">Mejor compañero</span> <a class="who" href="#/p/${buddy.g.slug}" style="--c:${buddy.g.color}">${esc(buddy.g.alias)}</a> <span class="good">${pct(buddy.w / buddy.n)}</span> <small class="muted">en ${buddy.n}</small></div>` : ''}
       </section>

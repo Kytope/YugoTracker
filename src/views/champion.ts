@@ -43,6 +43,7 @@ export function viewChampion(champId: number, ms: Game[]): string {
       ${stat('Winrate', `<span class="${wrClass(s.wr)}">${pct(s.wr)}</span>`, `${s.wins}V ${s.losses}D`)}
       ${stat('KDA', s.kda.toFixed(2), `${s.avgK.toFixed(1)} / ${s.avgD.toFixed(1)} / ${s.avgA.toFixed(1)}`)}
       ${stat('Daño promedio', short(s.avgDmg), `${Math.round(s.dpm)} por minuto`)}
+      ${stat('Puntaje promedio', s.avgScore.toFixed(1), `${s.mvps} MVP · ${s.aces} ACE`)}
       ${stat('Multikills', s.pentas + s.quadras, `${s.pentas} pentas · ${s.quadras} quadras`)}
     </section>
     <div class="split">
@@ -78,8 +79,8 @@ export function viewChampion(champId: number, ms: Game[]): string {
     </div>`;
 }
 
-/** Puntaje de "mejor partida": KDA con peso al daño, desempate por victoria. */
-const score = (r: Rec) => (r.p.k + r.p.a) / Math.max(1, r.p.d) + r.p.dmg / 20000 + (r.p.win ? 0.5 : 0);
+/** "Mejor partida" = mayor puntaje de desempeño (stats/mvp.ts). */
+const score = (r: Rec) => r.p.score;
 
 function topItems(recs: Rec[], n: number): [number, number][] {
   const count = new Map<number, number>();

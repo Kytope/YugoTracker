@@ -14,6 +14,7 @@ interface RecordDef {
 }
 
 const DEFS: RecordDef[] = [
+  { title: 'Mejor puntaje', value: (r) => r.p.score, fmt: (v) => `${v.toFixed(1)} / 10` },
   { title: 'Más kills', value: (r) => r.p.k, fmt: (v) => `${v} kills` },
   { title: 'Más daño a campeones', value: (r) => r.p.dmg, fmt: short },
   { title: 'Más asistencias', value: (r) => r.p.a, fmt: (v) => `${v} asistencias` },
