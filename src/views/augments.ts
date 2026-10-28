@@ -4,8 +4,9 @@ import { recordsOf } from '../stats/aggregate';
 import { byAugment, type AugmentStat } from '../stats/augments';
 import type { Game, Rarity } from '../types';
 import { augImg, augInfo } from '../ui/assets';
-import { chip, empty, sortHeader } from '../ui/components';
+import { chip, empty, searchBox, segmented, sortHeader } from '../ui/components';
 import { esc, pct, wrClass } from '../ui/format';
+import { normalize } from '../utils/text';
 
 const MIN = 3;
 const RARITY_ORDER: Record<Rarity, number> = { silver: 1, gold: 2, prism: 3 };
@@ -23,7 +24,13 @@ export function viewAugments(ms: Game[]): string {
   const worst = [...ranked].sort((a, b) => a.wr - b.wr || b.n - a.n)[0];
   const prism = list.find((e) => augInfo(e.id).rarity === 'prism');
 
-  const rows = [...list];
+  // Filtro por texto (`augQ`) y por rareza (`augRarity`).
+  const q = normalize(state.augQ);
+  const rows = list.filter((e) => {
+    const info = augInfo(e.id);
+    return (!q || normalize(info.name).includes(q)) && (!state.augRarity || info.rarity === state.augRarity);
+  });
+  const filtered = Boolean(q || state.augRarity);
   if (state.augSort === 'name') rows.sort((a, b) => augInfo(a.id).name.localeCompare(augInfo(b.id).name));
   else {
     const key = NUMERIC[state.augSort] ?? NUMERIC.n;
@@ -40,8 +47,14 @@ export function viewAugments(ms: Game[]): string {
       </div>
     </section>
     <section class="panel">
-      <h2 class="panel-title">Aumentos elegidos <span class="count">${list.length}</span></h2>
-      ${augTable(rows, true)}
+      <div class="panel-bar">
+        <h2 class="panel-title">Aumentos elegidos <span class="count">${filtered ? `${rows.length} de ${list.length}` : list.length}</span></h2>
+        <div class="toolbar tight">
+          ${segmented('rarity', state.augRarity, [['', 'Todas'], ['silver', 'Plata'], ['gold', 'Oro'], ['prism', 'Prismático']])}
+          ${searchBox('augQ', state.augQ, 'Buscar aumento…')}
+        </div>
+      </div>
+      ${rows.length ? `<div class="table-scroll">${augTable(rows, true)}</div>` : '<p class="empty">Ningún aumento coincide con la búsqueda.</p>'}
     </section>`;
 }
 

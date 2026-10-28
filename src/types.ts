@@ -43,4 +43,6 @@ export interface DDragon {
   v: string | null;
   champs: Map<number, { id: string; name: string }>;
   spells: Map<number, string>;
+  /** Nombre de cada ítem por id. */
+  items: Map<number, string>;
 }

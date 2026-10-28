@@ -6,9 +6,10 @@ import { activitySpan, byDay } from '../stats/timeline';
 import type { FriendPlayer, Friend, Game, Rec } from '../types';
 import { champName, profileIcon, splash } from '../ui/assets';
 import { chart, perGameLine, winLossBars } from '../ui/charts';
-import { champCell, moreButton, segmented, stat } from '../ui/components';
+import { champCell, moreButton, searchBox, segmented, stat } from '../ui/components';
 import { ago, esc, longDate, pct, short, shortDate, wrClass } from '../ui/format';
 import { matchRow } from '../ui/match';
+import { normalize } from '../utils/text';
 import { augTable } from './augments';
 import { awards } from './awards';
 
@@ -163,8 +164,14 @@ function activityChart(ms: Game[], recs: Rec[]): string {
 }
 
 function champsTab(f: Friend, ms: Game[]): string {
-  const champs = byChamp(recordsOf(ms, f));
+  const all = byChamp(recordsOf(ms, f));
+  const q = normalize(state.champQ);
+  const champs = all.filter((c) => !q || normalize(champName(c.p)).includes(q));
   return `<section class="panel flush">
+    <div class="panel-bar pad-x pad-top">
+      <h2 class="panel-title">Campeones <span class="count">${q ? `${champs.length} de ${all.length}` : all.length}</span></h2>
+      ${searchBox('champQ', state.champQ, 'Buscar campeón…')}
+    </div>
     <div class="table-scroll">
       <table class="tbl">
         <thead><tr><th>Campeón</th><th class="num">Partidas</th><th>Winrate</th><th>KDA</th><th class="num">Daño prom.</th><th class="num">Pentas</th></tr></thead>

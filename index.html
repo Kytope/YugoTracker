@@ -13,6 +13,13 @@
   <header class="topbar">
     <div class="topbar-row">
       <a class="brand" href="#/"><span class="brand-mark" aria-hidden="true"></span>Caos Tracker</a>
+      <div class="gsearch" role="search">
+        <svg aria-hidden="true" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg>
+        <input id="gsearch" type="search" placeholder="Buscar jugador, campeón o aumento" autocomplete="off" spellcheck="false"
+          role="combobox" aria-label="Buscar" aria-controls="gsearch-list" aria-expanded="false" aria-autocomplete="list">
+        <kbd aria-hidden="true">/</kbd>
+        <ul id="gsearch-list" role="listbox" aria-label="Resultados" hidden></ul>
+      </div>
       <div class="tools">
         <span id="updated" class="muted"></span>
         <select id="period" aria-label="Periodo"></select>

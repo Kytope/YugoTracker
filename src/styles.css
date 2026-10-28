@@ -400,3 +400,59 @@ a.player:hover b { text-decoration: underline; text-underline-offset: 2px; }
 }
 .seg button:hover { color: var(--text); }
 .seg button.on { background: var(--surface-2); color: var(--text); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* ---------- Búsqueda y filtros ---------- */
+.gsearch { position: relative; flex: 0 1 380px; margin-left: 24px; }
+.gsearch > svg, .search-box svg {
+  position: absolute; left: 10px; top: 50%; width: 14px; height: 14px; translate: 0 -50%;
+  fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; pointer-events: none;
+}
+.gsearch input, .search-box input {
+  width: 100%; height: 34px; padding: 0 34px 0 32px; border-radius: var(--radius-sm);
+  background: var(--surface); border: 1px solid var(--line); color: var(--text); font: inherit; font-size: 13px;
+  transition: border-color 150ms var(--ease), background-color 150ms var(--ease);
+}
+.gsearch input::placeholder, .search-box input::placeholder { color: var(--muted); }
+.gsearch input:hover, .search-box input:hover { border-color: var(--muted); }
+.gsearch input:focus, .search-box input:focus { outline: none; border-color: var(--accent); background: var(--surface-2); }
+.gsearch input::-webkit-search-cancel-button, .search-box input::-webkit-search-cancel-button { filter: grayscale(1) brightness(1.6); cursor: pointer; }
+.gsearch kbd {
+  position: absolute; right: 8px; top: 50%; translate: 0 -50%; pointer-events: none;
+  font: 600 11px/1 Inter, sans-serif; color: var(--muted); padding: 3px 6px; border-radius: 4px; border: 1px solid var(--line);
+}
+.gsearch input:focus ~ kbd, .gsearch input:not(:placeholder-shown) ~ kbd { display: none; }
+#gsearch-list {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: calc(var(--z-sticky) + 1);
+  margin: 0; padding: 4px; list-style: none; max-height: 380px; overflow-y: auto;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 8px 24px oklch(0 0 0 / 0.45);
+}
+#gsearch-list li { display: flex; align-items: center; gap: 10px; padding: 6px 8px; border-radius: var(--radius-sm); cursor: pointer; }
+#gsearch-list li[aria-selected='true'] { background: var(--surface-2); }
+#gsearch-list img { width: 28px; height: 28px; border-radius: 6px; background: var(--bg); flex: none; }
+#gsearch-list span { display: flex; flex-direction: column; min-width: 0; line-height: 1.3; }
+#gsearch-list b { font-weight: 600; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#gsearch-list small { font-size: 11px; color: var(--muted); }
+#gsearch-list .gs-empty { color: var(--muted); cursor: default; justify-content: center; padding: 12px; }
+
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.toolbar.tight { gap: 6px; }
+.toolbar select { height: 34px; }
+.search-box { position: relative; display: block; flex: 0 1 260px; min-width: 180px; }
+.link-btn { background: none; border: 0; padding: 4px 6px; color: var(--accent); font-size: 13px; font-weight: 500; cursor: pointer; }
+.link-btn:hover { text-decoration: underline; text-underline-offset: 2px; }
+.pad-top { padding-top: 12px; }
+.panel.flush > .panel-bar { margin-bottom: 0; padding-bottom: 10px; }
+
+a.champ-cell:hover { color: var(--text); text-decoration: underline; text-underline-offset: 2px; }
+.ci.xl { width: 72px; height: 72px; border-radius: 12px; }
+.item-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.item-list li { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; align-items: center; gap: 10px; font-size: 13px; }
+.item-list img { width: 28px; height: 28px; border-radius: 5px; background: var(--bg); }
+.item-list span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.item-list b { font-weight: 600; color: var(--text-2); font-variant-numeric: tabular-nums; }
+
+@media (max-width: 760px) {
+  .topbar-row { flex-wrap: wrap; height: auto; padding: 8px 0; row-gap: 8px; }
+  .gsearch { order: 3; flex-basis: 100%; margin-left: 0; }
+  .gsearch kbd { display: none; }
+}

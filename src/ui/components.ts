@@ -10,8 +10,17 @@ import { esc } from './format';
 export const stat = (label: string, value: string | number, sub = ''): string =>
   `<div class="stat"><span class="stat-label">${label}</span><b class="stat-value">${value}</b>${sub ? `<span class="stat-sub">${sub}</span>` : ''}</div>`;
 
-export const champCell = (p: Participant): string =>
-  `<span class="champ-cell"><img class="ci sm" src="${champIcon(p)}" alt="">${esc(champName(p))}</span>`;
+/** Campeón con ícono; enlaza a su página. No usar dentro de un <button> (fila de partida). */
+export const champCell = (p: Pick<Participant, 'champId' | 'champ'>): string =>
+  `<a class="champ-cell" href="#/c/${p.champId}"><img class="ci sm" src="${champIcon(p)}" alt="">${esc(champName(p))}</a>`;
+
+/**
+ * Caja de búsqueda que filtra la vista. main.ts guarda el valor en `state[key]` (o en el filtro de
+ * partidas) y vuelve a dibujar; el foco y el cursor se restauran por el id.
+ */
+export const searchBox = (key: string, value: string, placeholder: string): string =>
+  `<label class="search-box"><svg aria-hidden="true" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg>
+    <input id="f-${key}" type="search" data-filter="${key}" value="${esc(value)}" placeholder="${placeholder}" autocomplete="off" spellcheck="false"></label>`;
 
 export const who = (f: Friend): string =>
   `<a class="who" href="#/p/${f.slug}" style="--c:${f.color}">${esc(f.alias)}</a>`;

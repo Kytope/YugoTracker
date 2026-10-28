@@ -18,9 +18,14 @@ export const profileIcon = (id?: number): string => `${DD}/cdn/${state.dd.v}/img
 export function itemImgs(p: Participant): string {
   return p.items
     .slice(0, 6)
-    .map((id) => (id ? `<img src="${DD}/cdn/${state.dd.v}/img/item/${id}.png" alt="">` : '<i></i>'))
+    .map((id) => (id ? itemImg(id) : '<i></i>'))
     .join('');
 }
+
+export const itemName = (id: number): string => state.dd.items.get(id) ?? `Ítem ${id}`;
+
+export const itemImg = (id: number): string =>
+  `<img src="${DD}/cdn/${state.dd.v}/img/item/${id}.png" title="${esc(itemName(id))}" alt="${esc(itemName(id))}">`;
 
 export function spellImg(key: number): string {
   const id = state.dd.spells.get(key);

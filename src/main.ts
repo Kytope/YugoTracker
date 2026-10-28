@@ -9,9 +9,12 @@ import type { Game } from './types';
 import { mountCharts } from './ui/charts';
 import { ago } from './ui/format';
 import { scoreboard } from './ui/match';
+import { setupSearch } from './ui/search';
+import { EMPTY_FILTER } from './stats/filters';
 import { store } from './utils/storage';
 import { viewAugments } from './views/augments';
 import { viewAwards } from './views/awards';
+import { viewChampion } from './views/champion';
 import { viewChamps } from './views/champions';
 import { viewHome } from './views/home';
 import { viewMatches } from './views/matches';
@@ -48,7 +51,10 @@ async function init() {
   if (!state.dd.v && matches[0]) state.dd.v = matches[0].version.split('.').slice(0, 2).join('.') + '.1';
 
   setupHeader(data);
+  setupSearch((hash) => (location.hash === hash ? route() : (location.hash = hash)));
   document.addEventListener('click', onClick);
+  document.addEventListener('input', onFilterInput);
+  document.addEventListener('change', onFilterChange);
   document.addEventListener('error', (e) => {
     if (e.target instanceof HTMLImageElement) e.target.classList.add('broken');
   }, true);
@@ -77,14 +83,28 @@ function route() {
   const [, view = '', arg = '', tab = ''] = location.hash.slice(1).split('/');
   const ms = currentMatches();
   const friend = view === 'p' ? state.friends.find((x) => x.slug === decodeURIComponent(arg)) : undefined;
-  app.innerHTML = friend ? viewPlayer(friend, ms, tab) : (VIEWS[view] ?? viewHome)(ms);
+  // Los filtros vuelven a dibujar la vista: se guarda el foco y el cursor para no cortar la escritura.
+  const focused = document.activeElement instanceof HTMLInputElement && app.contains(document.activeElement) ? document.activeElement : null;
+  const caret = focused ? [focused.id, focused.selectionStart ?? 0] as const : null;
+
+  app.innerHTML = friend ? viewPlayer(friend, ms, tab)
+    : view === 'c' ? viewChampion(Number(arg), ms)
+    : (VIEWS[view] ?? viewHome)(ms);
   mountCharts(app);
-  const active = VIEWS[view] ? view : 'home';
+
+  if (caret) {
+    const el = document.getElementById(caret[0]);
+    if (el instanceof HTMLInputElement) {
+      el.focus();
+      el.setSelectionRange(caret[1], caret[1]);
+    }
+  }
+  const active = view === 'c' ? 'campeones' : VIEWS[view] ? view : 'home';
   document.querySelectorAll<HTMLAnchorElement>('.nav a').forEach((a) => a.classList.toggle('active', a.dataset.view === active));
 }
 
 function onClick(e: MouseEvent) {
-  const t = (e.target as Element).closest<HTMLElement>('[data-toggle],[data-sort],[data-augsort],[data-more],[data-metric],[data-pmetric]');
+  const t = (e.target as Element).closest<HTMLElement>('[data-toggle],[data-sort],[data-augsort],[data-more],[data-metric],[data-pmetric],[data-result],[data-rarity],[data-clear]');
   if (!t) return;
   const { toggle, sort, augsort, more, metric, pmetric } = t.dataset;
   if (toggle) {
@@ -100,6 +120,36 @@ function onClick(e: MouseEvent) {
   else if (more) state.limit += PAGE_SIZE;
   else if (metric) state.compareMetric = metric;
   else if (pmetric) state.perfMetric = pmetric;
+  // Estas opciones pueden valer '' ("Todas"), así que se revisa que el atributo exista.
+  else if (t.dataset.result !== undefined) state.matchFilter.result = t.dataset.result as typeof state.matchFilter.result;
+  else if (t.dataset.rarity !== undefined) state.augRarity = t.dataset.rarity as typeof state.augRarity;
+  else if (t.dataset.clear) state.matchFilter = { ...EMPTY_FILTER };
+  state.limit = PAGE_SIZE;
+  route();
+}
+
+let filterTimer = 0;
+
+/** Texto de los buscadores de cada vista (data-filter). Se espera un instante entre teclas. */
+function onFilterInput(e: Event) {
+  const el = e.target as HTMLInputElement;
+  const key = el.dataset?.filter;
+  if (!key || el.tagName !== 'INPUT') return;
+  if (key === 'q') state.matchFilter.q = el.value;
+  else if (key === 'champQ') state.champQ = el.value;
+  else if (key === 'augQ') state.augQ = el.value;
+  clearTimeout(filterTimer);
+  filterTimer = window.setTimeout(() => {
+    state.limit = PAGE_SIZE;
+    route();
+  }, 120);
+}
+
+function onFilterChange(e: Event) {
+  const el = e.target as HTMLSelectElement;
+  if (el.tagName !== 'SELECT' || el.dataset?.filter !== 'player') return;
+  state.matchFilter.player = el.value;
+  state.limit = PAGE_SIZE;
   route();
 }
 
