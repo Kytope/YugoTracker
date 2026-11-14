@@ -7,7 +7,8 @@ Hecha con TypeScript y Vite. Requiere Node 22.12 o superior.
 ## Cómo funciona
 
 - `scripts/sync.ts` lee las partidas desde el **cliente de League abierto en tu PC** y las guarda en `public/data/matches.json`. Solo agrega las nuevas y nunca borra las anteriores.
-- La página (`src/`) lee ese JSON y calcula todo en el navegador. Los íconos y nombres vienen de Data Dragon y CommunityDragon.
+- La página (`src/`) lee ese JSON y calcula todo en el navegador. Los íconos y nombres de campeones e ítems vienen de Data Dragon.
+- Los aumentos se guardan en el repo: `public/data/augments.json` (catálogo) y `public/augments/<id>.png` (íconos). La sincronización los toma del cliente de League y, si CommunityDragon responde, cambia los nombres al español. Así la página no depende de CommunityDragon, que se cae seguido.
 
 ### Por qué el cliente y no la API de Riot
 

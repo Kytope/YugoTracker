@@ -1,5 +1,6 @@
 // Tipos de la página: los datos crudos de shared/types enriquecidos con los amigos.
 
+import type { Rarity } from './shared/augments';
 import type { Match, Participant, PlayerInfo } from './shared/types';
 import type { Badge } from './stats/mvp';
 
@@ -36,7 +37,7 @@ export interface Rec {
   p: FriendPlayer;
 }
 
-export type Rarity = 'silver' | 'gold' | 'prism';
+export type { Rarity };
 
 export interface AugmentInfo {
   name: string;

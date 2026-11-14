@@ -1,6 +1,6 @@
 import './styles.css';
 import { PAGE_SIZE, PERIODS, type Period } from './config';
-import { cachedAugments, loadAugments } from './data/augments';
+import { loadAugments, loadRemoteAugments } from './data/augments';
 import { loadDDragon } from './data/ddragon';
 import { loadData, prepare } from './data/load';
 import type { MatchData } from './shared/types';
@@ -36,11 +36,10 @@ const VIEWS: Record<string, (ms: Game[]) => string> = {
 init();
 
 async function init() {
-  // Los aumentos no bloquean la carga: se parte con la copia guardada y se actualiza cuando lleguen.
-  const augsPromise = loadAugments();
-  const [data, dd] = await Promise.all([loadData(), loadDDragon()]);
+  // Partidas y aumentos vienen del mismo servidor que la página; Data Dragon tiene límite de tiempo.
+  const [data, dd, augs] = await Promise.all([loadData(), loadDDragon(), loadAugments()]);
   state.dd = dd;
-  state.augs = cachedAugments();
+  state.augs = augs;
   if (!data?.matches.length) {
     app.innerHTML = emptyState(data);
     return;
@@ -67,10 +66,13 @@ async function init() {
   });
   route();
 
-  const fresh = await augsPromise;
-  if (fresh) {
-    state.augs = fresh;
-    route();
+  // Sin catálogo local (aún no se sincronizó): respaldo en CommunityDragon, sin bloquear la página.
+  if (!augs.size) {
+    const remote = await loadRemoteAugments();
+    if (remote) {
+      state.augs = remote;
+      route();
+    }
   }
 }
 

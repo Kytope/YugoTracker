@@ -13,11 +13,15 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import https from 'node:https';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { cleanName, RARITIES, type AugmentFile } from '../src/shared/augments';
 import type { Match, MatchData, Participant, PlayerInfo, PlayersConfig, TeamId } from '../src/shared/types';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PLAYERS_FILE = path.join(ROOT, 'config', 'players.json');
 const DATA_FILE = path.join(ROOT, 'public', 'data', 'matches.json');
+const AUG_FILE = path.join(ROOT, 'public', 'data', 'augments.json');
+const AUG_DIR = path.join(ROOT, 'public', 'augments');
+const CDRAGON_AUGMENTS = 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/es_mx/v1/cherry-augments.json';
 
 const QUEUE_ID = Number(process.env.QUEUE_ID || 2400); // 2400 = ARAM: Caos (Mayhem)
 const MAX_MATCHES = Number(process.env.MAX_MATCHES_PER_PLAYER || 300);
@@ -119,30 +123,37 @@ const client = lcu;
 const agent = new https.Agent({ rejectUnauthorized: false });
 const auth = 'Basic ' + Buffer.from(`riot:${client.password}`).toString('base64');
 
-function get<T>(pathname: string, attempt = 0): Promise<T | null> {
+/** Pide una ruta al cliente; reintenta errores temporales. null si no existe (404). */
+function request(pathname: string, attempt = 0): Promise<Buffer | null> {
   return new Promise((resolve, reject) => {
     const req = https.get({ host: '127.0.0.1', port: client.port, path: pathname, agent, headers: { Authorization: auth } }, (res) => {
-      let body = '';
-      res.setEncoding('utf8');
-      res.on('data', (c: string) => (body += c));
+      const chunks: Buffer[] = [];
+      res.on('data', (c: Buffer) => chunks.push(c));
       res.on('end', () => {
         const status = res.statusCode ?? 0;
+        const body = Buffer.concat(chunks);
         if (status === 404) return resolve(null);
         if (status >= 500 || status === 429) {
           if (attempt >= 4) return reject(new Error(`${status} en ${pathname}`));
-          setTimeout(() => get<T>(pathname, attempt + 1).then(resolve, reject), 1500 * (attempt + 1));
+          setTimeout(() => request(pathname, attempt + 1).then(resolve, reject), 1500 * (attempt + 1));
           return;
         }
-        if (status >= 400) return reject(new Error(`${status} en ${pathname}: ${body.slice(0, 200)}`));
-        try {
-          resolve(JSON.parse(body) as T);
-        } catch {
-          reject(new Error(`Respuesta inválida en ${pathname}`));
-        }
+        if (status >= 400) return reject(new Error(`${status} en ${pathname}: ${body.toString('utf8', 0, 200)}`));
+        resolve(body);
       });
     });
     req.on('error', (e: NodeJS.ErrnoException) => reject(new Error(`No pude conectar con el cliente (${e.code ?? e.message}). ¿Sigue abierto?`)));
   });
+}
+
+async function get<T>(pathname: string): Promise<T | null> {
+  const body = await request(pathname);
+  if (!body) return null;
+  try {
+    return JSON.parse(body.toString('utf8')) as T;
+  } catch {
+    throw new Error(`Respuesta inválida en ${pathname}`);
+  }
 }
 
 // ---------- Sincronización ----------
@@ -210,6 +221,8 @@ try {
   }
 }
 
+await syncAugments().catch((e: Error) => console.warn(`⚠ Aumentos: ${e.message}`));
+
 // El historial del cliente trae todas las colas mezcladas: se pagina y se filtra por QUEUE_ID.
 // Ojo: hoy el cliente ignora la paginación y solo devuelve las ~20 partidas más recientes,
 // por eso conviene sincronizar seguido. El corte por página repetida evita pedir lo mismo.
@@ -227,6 +240,72 @@ async function fetchGameIds(puuid: string): Promise<number[]> {
     if (!FULL && caos.some((id) => known.has(matchId(id)))) break;
   }
   return ids.slice(0, MAX_MATCHES);
+}
+
+// ---------- Aumentos ----------
+
+interface LcuAugment {
+  id: number;
+  nameTRA: string;
+  augmentNameId: string;
+  augmentSmallIconPath?: string;
+  rarity: string;
+}
+
+/**
+ * Guarda el catálogo de los aumentos usados (public/data/augments.json) y sus íconos (public/augments/),
+ * para que la página no dependa de CommunityDragon. El catálogo y los íconos salen del cliente; los
+ * nombres en español, de CommunityDragon cuando responde (si no, quedan los que ya había o los del cliente).
+ */
+async function syncAugments(): Promise<void> {
+  const used = new Set(data.matches.flatMap((m) => m.participants.flatMap((p) => p.augments)));
+  if (!used.size) return;
+  const file: AugmentFile = existsSync(AUG_FILE) ? (JSON.parse(await readFile(AUG_FILE, 'utf8')) as AugmentFile) : {};
+  const before = JSON.stringify(file);
+
+  const lcu = new Map(((await get<LcuAugment[]>('/lol-game-data/assets/v1/cherry-augments.json')) ?? []).map((a) => [a.id, a]));
+  const spanish = [...used].some((id) => !file[id]?.es) ? await spanishNames() : null;
+
+  await mkdir(AUG_DIR, { recursive: true });
+  let icons = 0;
+  for (const id of used) {
+    const a = lcu.get(id);
+    const prev = file[id];
+    if (!a && !prev) continue;
+    const es = spanish?.get(id);
+    file[id] = {
+      name: es ?? (prev?.es ? prev.name : a ? cleanName(a.nameTRA, a.augmentNameId) : prev!.name),
+      rarity: a ? (RARITIES[a.rarity] ?? 'silver') : prev!.rarity,
+      es: Boolean(es) || Boolean(prev?.es),
+    };
+    const icon = path.join(AUG_DIR, `${id}.png`);
+    if (!existsSync(icon) && a?.augmentSmallIconPath) {
+      const png = await request(a.augmentSmallIconPath).catch(() => null);
+      if (png) {
+        await writeFile(icon, png);
+        icons++;
+      }
+    }
+  }
+
+  const sorted = Object.fromEntries(Object.entries(file).sort(([x], [y]) => Number(x) - Number(y)));
+  if (JSON.stringify(sorted) !== before || icons) {
+    await writeFile(AUG_FILE, JSON.stringify(sorted, null, 1) + '\n');
+    const missing = Object.values(sorted).filter((x) => !x.es).length;
+    console.log(`✔ Aumentos: ${Object.keys(sorted).length} en el catálogo, ${icons} íconos nuevos${missing ? `, ${missing} sin nombre en español` : ''}.`);
+  }
+}
+
+/** Nombres en español desde CommunityDragon; null si no responde (suele caerse). */
+async function spanishNames(): Promise<Map<number, string> | null> {
+  try {
+    const res = await fetch(CDRAGON_AUGMENTS, { signal: AbortSignal.timeout(10000) });
+    if (!res.ok) return null;
+    const list = (await res.json()) as LcuAugment[];
+    return new Map(list.map((a) => [a.id, cleanName(a.nameTRA, a.augmentNameId)]));
+  } catch {
+    return null;
+  }
 }
 
 function matchId(gameId: number): string {

@@ -5,7 +5,7 @@
 $ErrorActionPreference = 'Continue'
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $root = Split-Path -Parent $PSScriptRoot
-$data = Join-Path $root 'public\data\matches.json'
+$public = Join-Path $root 'public'
 $logDir = Join-Path $root 'logs'
 $log = Join-Path $logDir 'sync.log'
 New-Item -ItemType Directory -Force $logDir | Out-Null
@@ -26,20 +26,30 @@ if (-not (Get-Process LeagueClientUx -ErrorAction SilentlyContinue)) { exit 0 }
 $node = (Get-Command node -ErrorAction SilentlyContinue).Source
 if (-not $node) { Write-Log 'ERROR: no encontré node en el PATH'; exit 1 }
 
-$before = if (Test-Path $data) { (Get-FileHash $data).Hash } else { '' }
+# Huella de los datos publicados: partidas, catálogo de aumentos y cantidad de íconos.
+function Get-DataSignature {
+    $files = @('data\matches.json', 'data\augments.json') | ForEach-Object { Join-Path $public $_ } | Where-Object { Test-Path $_ }
+    $hashes = ($files | ForEach-Object { (Get-FileHash $_).Hash }) -join ''
+    $icons = (Get-ChildItem (Join-Path $public 'augments') -Filter *.png -ErrorAction SilentlyContinue | Measure-Object).Count
+    "$hashes|$icons"
+}
+
+$before = Get-DataSignature
 Push-Location $root
 try {
     $out = & $node --import tsx scripts/sync.ts --auto 2>&1 | Out-String
-    $after = if (Test-Path $data) { (Get-FileHash $data).Hash } else { '' }
+    $after = Get-DataSignature
     if ($LASTEXITCODE -ne 0) { Write-Log "ERROR en sync:`n$out"; exit 1 }
     if ($before -eq $after) { Write-Log 'Sin partidas nuevas.'; exit 0 }
 
-    Write-Log ($out.Trim() -split "`r?`n" | Select-Object -Last 1)
+    # Líneas de resumen de sync.ts (empiezan con ✔): partidas guardadas y/o aumentos.
+    $summary = ($out -split "`r?`n" | Where-Object { $_ -match '^✔' }) -join ' '
+    Write-Log $(if ($summary) { $summary } else { ($out.Trim() -split "`r?`n" | Select-Object -Last 1) })
 
     $isRepo = (git rev-parse --is-inside-work-tree 2>$null) -eq 'true'
     $hasRemote = $isRepo -and (git remote 2>$null)
     if ($hasRemote) {
-        git add public/data/matches.json 2>&1 | Out-Null
+        git add public/data public/augments 2>&1 | Out-Null
         git commit -m "Actualizar partidas" 2>&1 | Out-Null
         $push = git push 2>&1 | Out-String
         if ($LASTEXITCODE -eq 0) { Write-Log 'Subido a GitHub' } else { Write-Log "ERROR en git push:`n$push" }
