@@ -2,7 +2,7 @@ import { state } from '../state';
 import { agg, byChamp, minGames, recordsOf, streak } from '../stats/aggregate';
 import { playerExtras, type PlayerExtras } from '../stats/awards';
 import { squadStats } from '../stats/synergy';
-import { activitySpan, byDay, byHour } from '../stats/timeline';
+import { activitySpan, byDay, byHour, groupRecord } from '../stats/timeline';
 import type { Friend, Game, Rec } from '../types';
 import { champIcon, champName, profileIcon } from '../ui/assets';
 import { chart, rankingBars, winLossBars } from '../ui/charts';
@@ -33,6 +33,9 @@ const COMPARE: Record<string, Metric> = {
 export function viewHome(ms: Game[]): string {
   const all = recordsOf(ms);
   const s = agg(all);
+  // Winrate del grupo: una vez por partida. `s` es por jugador-partida (sirve para promedios, no para esto).
+  const g = groupRecord(ms);
+  const gwr = g.w / Math.max(1, g.w + g.l);
   const rows = state.friends
     .map((f) => ({ f, recs: all.filter((r) => r.p.friend === f) }))
     .sort((a, b) => b.recs.length - a.recs.length);
@@ -43,7 +46,7 @@ export function viewHome(ms: Game[]): string {
   return `
     <section class="panel summary">
       ${stat('Partidas del grupo', ms.length)}
-      ${stat('Winrate', `<span class="${wrClass(s.wr)}">${pct(s.wr)}</span>`, `${s.wins}V ${s.losses}D`)}
+      ${stat('Winrate del grupo', `<span class="${wrClass(gwr)}">${pct(gwr)}</span>`, `${g.w}V ${g.l}D${g.civil ? ` · ${g.civil} ${g.civil === 1 ? 'guerra civil' : 'guerras civiles'}` : ''}`)}
       ${stat('KDA promedio', s.kda.toFixed(2), `${s.avgK.toFixed(1)} / ${s.avgD.toFixed(1)} / ${s.avgA.toFixed(1)}`)}
       ${stat('Pentakills', s.pentas, `${s.quadras} quadras`)}
       ${bestDuo ? stat('Mejor dúo', pct(bestDuo.wr), `${bestDuo.friends.map((f) => esc(f.alias)).join(' + ')} · ${bestDuo.n} partidas`) : ''}

@@ -13,8 +13,23 @@ const dayKey = (ts: number): string => {
 };
 
 /** Resultado del grupo en una partida; null si hubo amigos en ambos equipos. */
-const groupWin = (m: Game): boolean | null =>
+export const groupWin = (m: Game): boolean | null =>
   new Set(m.mine.map((p) => p.team)).size > 1 ? null : m.mine[0].win;
+
+/**
+ * Victorias y derrotas del grupo contando cada partida una vez (no una por amigo).
+ * Las guerras civiles (amigos en equipos contrarios) van aparte: alguien ganó y alguien perdió.
+ */
+export function groupRecord(ms: Game[]): { w: number; l: number; civil: number } {
+  const r = { w: 0, l: 0, civil: 0 };
+  for (const m of ms) {
+    const win = groupWin(m);
+    if (win === null) r.civil++;
+    else if (win) r.w++;
+    else r.l++;
+  }
+  return r;
+}
 
 /**
  * Victorias y derrotas por día, de `days` días atrás hasta `now` (incluye días sin partidas,

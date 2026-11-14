@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { recordsOf } from '../src/stats/aggregate';
-import { activitySpan, byDay, byHour } from '../src/stats/timeline';
+import { activitySpan, byDay, byHour, groupRecord } from '../src/stats/timeline';
 import { build, match } from './fixtures';
 
 const at = (day: number, hour: number) => new Date(2026, 9, day, hour).getTime();
@@ -40,6 +40,17 @@ describe('byHour', () => {
     const hours = byHour(matches);
     expect(hours).toHaveLength(24);
     expect(hours[2]).toEqual({ key: 2, w: 1, l: 1 });
+  });
+});
+
+describe('groupRecord', () => {
+  it('cuenta cada partida una vez aunque jueguen varios amigos', () => {
+    const { matches } = build([
+      match([{ who: 'ana' }, { who: 'beto' }, { who: 'cata' }], { blueWins: true }), // 3 amigos, 1 victoria
+      match([{ who: 'ana' }, { who: 'beto' }], { blueWins: false }),
+      match([{ who: 'ana' }, { who: 'cata', team: 200 }]), // guerra civil
+    ]);
+    expect(groupRecord(matches)).toEqual({ w: 1, l: 1, civil: 1 });
   });
 });
 
