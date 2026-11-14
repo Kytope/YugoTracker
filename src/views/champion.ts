@@ -43,7 +43,7 @@ export function viewChampion(champId: number, ms: Game[]): string {
       ${stat('Winrate', `<span class="${wrClass(s.wr)}">${pct(s.wr)}</span>`, `${s.wins}V ${s.losses}D`)}
       ${stat('KDA', s.kda.toFixed(2), `${s.avgK.toFixed(1)} / ${s.avgD.toFixed(1)} / ${s.avgA.toFixed(1)}`)}
       ${stat('Daño promedio', short(s.avgDmg), `${Math.round(s.dpm)} por minuto`)}
-      ${stat('Puntaje promedio', s.avgScore.toFixed(1), `${s.mvps} MVP · ${s.aces} ACE`)}
+      ${stat('Puntaje promedio', s.avgScore.toFixed(1), `${s.mvps} MVP · ${s.aces} ACE · ${s.worsts} PEOR`)}
       ${stat('Multikills', s.pentas + s.quadras, `${s.pentas} pentas · ${s.quadras} quadras`)}
     </section>
     <div class="split">

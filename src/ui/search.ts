@@ -24,7 +24,16 @@ const MAX = 8;
 export function setupSearch(navigate: (hash: string) => void): void {
   const input = document.getElementById('gsearch') as HTMLInputElement;
   const list = document.getElementById('gsearch-list') as HTMLUListElement;
-  const index = buildIndex(navigate);
+  // El índice se rehace si cambió el catálogo de aumentos (llega después de la primera carga).
+  let index: Hit[] = [];
+  let builtFor: unknown = null;
+  const getIndex = () => {
+    if (builtFor !== state.augs) {
+      index = buildIndex(navigate);
+      builtFor = state.augs;
+    }
+    return index;
+  };
   let shown: Hit[] = [];
   let active = 0;
 
@@ -37,7 +46,7 @@ export function setupSearch(navigate: (hash: string) => void): void {
   const render = () => {
     const q = input.value.trim();
     shown = q
-      ? index
+      ? getIndex()
           .map((h) => ({ h, s: Math.max(...h.keys.map((k) => matchScore(k, q))) }))
           .filter((x) => x.s > 0)
           .sort((a, b) => b.s - a.s || KIND_ORDER[a.h.kind] - KIND_ORDER[b.h.kind] || a.h.label.localeCompare(b.h.label))

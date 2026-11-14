@@ -467,6 +467,7 @@ a.champ-cell:hover { color: var(--text); text-decoration: underline; text-underl
   padding: 3px 5px; border-radius: 4px; vertical-align: middle;
 }
 .medal.mvp { background: var(--gold); color: oklch(0.22 0.04 85); }
+.medal.peor { background: color-mix(in oklch, var(--loss) 22%, transparent); color: var(--loss); border: 1px solid color-mix(in oklch, var(--loss) 50%, transparent); }
 .medal.ace { background: color-mix(in oklch, var(--prism) 30%, transparent); color: var(--prism); border: 1px solid color-mix(in oklch, var(--prism) 55%, transparent); }
 .mscore { min-width: 52px; gap: 3px; }
 .mscore .medal { margin-top: 1px; }

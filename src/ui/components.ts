@@ -2,6 +2,7 @@
 
 import type { Participant } from '../shared/types';
 import { state } from '../state';
+import type { Badge } from '../stats/mvp';
 import type { Friend } from '../types';
 import { champIcon, champName } from './assets';
 import { esc } from './format';
@@ -33,9 +34,15 @@ export const moreButton = (total: number): string =>
 
 export const empty = (text = 'Sin partidas en este periodo.'): string => `<p class="empty">${text}</p>`;
 
-/** Medalla MVP/ACE de una partida. */
-export const medal = (badge: 'MVP' | 'ACE' | null): string =>
-  badge ? `<span class="medal ${badge.toLowerCase()}" title="${badge === 'MVP' ? 'Mejor puntaje del equipo ganador' : 'Mejor puntaje del equipo perdedor'}">${badge}</span>` : '';
+const MEDAL_TITLE: Record<Badge, string> = {
+  MVP: 'Mejor puntaje del equipo ganador',
+  ACE: 'Mejor puntaje del equipo perdedor',
+  PEOR: 'Puntaje más bajo de la partida',
+};
+
+/** Medalla MVP/ACE/PEOR de una partida. */
+export const medal = (badge: Badge | null): string =>
+  badge ? `<span class="medal ${badge.toLowerCase()}" title="${MEDAL_TITLE[badge]}">${badge}</span>` : '';
 
 /** Puntaje 0–10 con color según el tramo. */
 export const scoreTag = (score: number): string =>

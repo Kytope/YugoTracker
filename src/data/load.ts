@@ -4,8 +4,12 @@ import type { Friend, FriendPlayer, Game, GamePlayer } from '../types';
 import { scoreMatch } from '../stats/mvp';
 import { nameKey, slugify } from '../ui/format';
 
-export async function getJSON<T>(url: string): Promise<T> {
-  const res = await fetch(url);
+/**
+ * Las fuentes externas (Data Dragon, CommunityDragon) a veces se caen y tardan ~40 s en fallar:
+ * se corta a los `timeoutMs` para que la página nunca quede esperándolas.
+ */
+export async function getJSON<T>(url: string, timeoutMs = 8000): Promise<T> {
+  const res = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) });
   if (!res.ok) throw new Error(url);
   return res.json() as Promise<T>;
 }

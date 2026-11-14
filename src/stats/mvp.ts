@@ -3,7 +3,8 @@
 
 import type { Participant } from '../shared/types';
 
-export type Badge = 'MVP' | 'ACE';
+/** MVP = mejor del equipo ganador; ACE = mejor del perdedor; PEOR = puntaje más bajo de la partida. */
+export type Badge = 'MVP' | 'ACE' | 'PEOR';
 
 type ScoreInput = Pick<Participant, 'team' | 'win' | 'k' | 'd' | 'a' | 'dmg' | 'taken' | 'heal' | 'cc' | 'mitigated'>;
 
@@ -60,5 +61,11 @@ export function scoreMatch(ps: ScoreInput[]): MatchScore[] {
   };
   const mvp = best(true);
   const ace = best(false);
-  return raw.map((v, i) => ({ score: Math.round(v * 10) / 10, badge: i === mvp ? 'MVP' : i === ace ? 'ACE' : null }));
+  // El peor se busca entre los 10, sin contar a quienes ya tienen MVP o ACE.
+  let worst = -1;
+  raw.forEach((v, i) => { if (i !== mvp && i !== ace && (worst < 0 || v < raw[worst])) worst = i; });
+  return raw.map((v, i) => ({
+    score: Math.round(v * 10) / 10,
+    badge: i === mvp ? 'MVP' : i === ace ? 'ACE' : i === worst ? 'PEOR' : null,
+  }));
 }

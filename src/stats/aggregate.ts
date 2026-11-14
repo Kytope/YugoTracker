@@ -20,6 +20,8 @@ export interface Totals {
   avgScore: number;
   mvps: number;
   aces: number;
+  /** Veces con el puntaje más bajo de la partida. */
+  worsts: number;
   wr: number;
   kda: number;
   avgK: number;
@@ -36,7 +38,7 @@ export const recordsOf = (ms: Game[], f?: Friend): Rec[] =>
 
 export function agg(recs: Rec[]): Totals {
   let wins = 0, k = 0, d = 0, a = 0, dmg = 0, taken = 0, heal = 0, gold = 0, triples = 0, quadras = 0, pentas = 0, secs = 0;
-  let score = 0, mvps = 0, aces = 0;
+  let score = 0, mvps = 0, aces = 0, worsts = 0;
   for (const { m, p } of recs) {
     wins += p.win ? 1 : 0;
     k += p.k; d += p.d; a += p.a;
@@ -46,6 +48,7 @@ export function agg(recs: Rec[]): Totals {
     score += p.score;
     if (p.badge === 'MVP') mvps++;
     else if (p.badge === 'ACE') aces++;
+    else if (p.badge === 'PEOR') worsts++;
   }
   const games = recs.length;
   const n = Math.max(1, games);
@@ -59,6 +62,7 @@ export function agg(recs: Rec[]): Totals {
     avgScore: score / n,
     mvps,
     aces,
+    worsts,
   };
 }
 

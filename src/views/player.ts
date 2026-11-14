@@ -86,7 +86,7 @@ function overview(f: Friend, ms: Game[]): string {
           ${stat('Mejor racha', longestRun(recs), 'victorias seguidas')}
           ${stat('Multikills', s.pentas + s.quadras, `${s.pentas} pentas · ${s.quadras} quadras`)}
           ${stat('Puntaje promedio', s.avgScore.toFixed(1), 'de 10 por partida')}
-          ${stat('Medallas', `${s.mvps} <small class="muted">MVP</small> · ${s.aces} <small class="muted">ACE</small>`)}
+          ${stat('Medallas', `${s.mvps} <small class="muted">MVP</small> · ${s.aces} <small class="muted">ACE</small> · ${s.worsts} <small class="muted">PEOR</small>`)}
         </div>
         ${buddy ? `<div class="buddy"><span class="muted">Mejor compañero</span> <a class="who" href="#/p/${buddy.g.slug}" style="--c:${buddy.g.color}">${esc(buddy.g.alias)}</a> <span class="good">${pct(buddy.w / buddy.n)}</span> <small class="muted">en ${buddy.n}</small></div>` : ''}
       </section>

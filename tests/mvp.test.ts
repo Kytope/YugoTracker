@@ -5,7 +5,7 @@ import { participant } from './fixtures';
 const line = (who: string, team: 100 | 200, win: boolean, extra = {}) => participant({ who, team, win, ...extra });
 
 describe('scoreMatch', () => {
-  it('el que más aporta del equipo ganador es MVP y el del perdedor es ACE', () => {
+  it('MVP al mejor del ganador, ACE al mejor del perdedor y PEOR al puntaje más bajo', () => {
     const ps = [
       line('carry', 100, true, { k: 20, d: 2, a: 10, dmg: 60000 }),
       line('normal', 100, true, { k: 5, d: 6, a: 15, dmg: 25000 }),
@@ -13,7 +13,7 @@ describe('scoreMatch', () => {
       line('feeder', 200, false, { k: 1, d: 15, a: 3, dmg: 9000 }),
     ];
     const res = scoreMatch(ps);
-    expect(res.map((r) => r.badge)).toEqual(['MVP', null, 'ACE', null]);
+    expect(res.map((r) => r.badge)).toEqual(['MVP', null, 'ACE', 'PEOR']);
     expect(res[0].score).toBeGreaterThan(res[1].score);
     expect(res[3].score).toBeLessThan(res[2].score);
   });
@@ -35,6 +35,24 @@ describe('scoreMatch', () => {
     ];
     const [tank, nada] = scoreMatch(ps);
     expect(tank.score).toBeGreaterThan(nada.score + 1);
+  });
+
+  it('el peor puede estar en el equipo ganador', () => {
+    const ps = [
+      line('carry', 100, true, { k: 20, d: 2, a: 10, dmg: 60000 }),
+      line('mochila', 100, true, { k: 0, d: 14, a: 2, dmg: 4000, taken: 5000, heal: 0, cc: 0 }),
+      line('ace', 200, false, { k: 12, d: 8, a: 8, dmg: 50000 }),
+      line('normal', 200, false, { k: 6, d: 9, a: 10, dmg: 30000 }),
+    ];
+    expect(scoreMatch(ps)[1].badge).toBe('PEOR');
+  });
+
+  it('nadie tiene dos medallas y hay exactamente un PEOR', () => {
+    const ps = Array.from({ length: 10 }, (_, i) => line(`p${i}`, i < 5 ? 100 : 200, i < 5, { k: i, d: 10 - i, dmg: 10000 + i * 3000 }));
+    const badges = scoreMatch(ps).map((r) => r.badge);
+    expect(badges.filter((b) => b === 'MVP')).toHaveLength(1);
+    expect(badges.filter((b) => b === 'ACE')).toHaveLength(1);
+    expect(badges.filter((b) => b === 'PEOR')).toHaveLength(1);
   });
 
   it('partida vacía o sin perdedores no rompe', () => {

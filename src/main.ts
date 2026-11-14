@@ -1,6 +1,6 @@
 import './styles.css';
 import { PAGE_SIZE, PERIODS, type Period } from './config';
-import { loadAugments } from './data/augments';
+import { cachedAugments, loadAugments } from './data/augments';
 import { loadDDragon } from './data/ddragon';
 import { loadData, prepare } from './data/load';
 import type { MatchData } from './shared/types';
@@ -36,9 +36,11 @@ const VIEWS: Record<string, (ms: Game[]) => string> = {
 init();
 
 async function init() {
-  const [data, dd, augs] = await Promise.all([loadData(), loadDDragon(), loadAugments()]);
+  // Los aumentos no bloquean la carga: se parte con la copia guardada y se actualiza cuando lleguen.
+  const augsPromise = loadAugments();
+  const [data, dd] = await Promise.all([loadData(), loadDDragon()]);
   state.dd = dd;
-  state.augs = augs;
+  state.augs = cachedAugments();
   if (!data?.matches.length) {
     app.innerHTML = emptyState(data);
     return;
@@ -64,6 +66,12 @@ async function init() {
     route();
   });
   route();
+
+  const fresh = await augsPromise;
+  if (fresh) {
+    state.augs = fresh;
+    route();
+  }
 }
 
 function setupHeader(data: MatchData) {

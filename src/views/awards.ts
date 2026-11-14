@@ -18,6 +18,7 @@ const AWARDS: Award[] = [
   { id: 'adicto', title: 'Adicto al caos', desc: 'Más partidas jugadas', value: (s) => s.games, fmt: (s) => `${s.games} partidas` },
   { id: 'mvp', title: 'MVP del grupo', desc: 'Más veces MVP (mejor puntaje del equipo ganador)', value: (s) => s.mvps, fmt: (s) => `${s.mvps} veces MVP` },
   { id: 'completo', title: 'El más completo', desc: 'Mejor puntaje promedio', avg: true, value: (s) => s.avgScore, fmt: (s) => `${s.avgScore.toFixed(1)} de puntaje` },
+  { id: 'lastre', title: 'El lastre', desc: 'Más veces PEOR (el puntaje más bajo de la partida)', value: (s) => s.worsts, fmt: (s) => `${s.worsts} veces el peor` },
   { id: 'heroe', title: 'Héroe trágico', desc: 'Más veces ACE (el mejor del equipo que perdió)', value: (s) => s.aces, fmt: (s) => `${s.aces} veces ACE` },
   { id: 'talisman', title: 'Talismán', desc: 'Mejor winrate', avg: true, value: (s) => s.wr, fmt: (s) => `${pct(s.wr)} · ${s.wins}V ${s.losses}D` },
   { id: 'carnicero', title: 'Carnicero', desc: 'Más kills por partida', avg: true, value: (s) => s.avgK, fmt: (s) => `${s.avgK.toFixed(1)} kills` },
