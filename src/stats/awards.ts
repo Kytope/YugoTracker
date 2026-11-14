@@ -1,5 +1,6 @@
 import type { Friend, Game, Rec } from '../types';
 import { agg, byChamp, longestRun, recordsOf, type ChampGroup, type Totals } from './aggregate';
+import { gamesWithItem, HEARTSTEEL } from './items';
 
 export interface PlayerExtras extends Totals {
   distinct: number;
@@ -14,6 +15,8 @@ export interface PlayerExtras extends Totals {
   night: number;
   best: number;
   worstRun: number;
+  /** Partidas terminadas con Corazón de Acero. */
+  heartsteel: number;
 }
 
 export function playerExtras(recs: Rec[]): PlayerExtras {
@@ -38,6 +41,7 @@ export function playerExtras(recs: Rec[]): PlayerExtras {
     night: recs.filter((r) => new Date(r.m.start).getHours() < 6).length,
     best: longestRun(recs, true),
     worstRun: longestRun(recs, false),
+    heartsteel: gamesWithItem(recs, HEARTSTEEL),
   };
 }
 

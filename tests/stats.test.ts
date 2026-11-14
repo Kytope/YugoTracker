@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { agg, byChamp, longestRun, recordsOf, streak } from '../src/stats/aggregate';
 import { byAugment } from '../src/stats/augments';
 import { computeAwards } from '../src/stats/awards';
+import { gamesWithItem, HEARTSTEEL } from '../src/stats/items';
 import { bySquadSize, combos, matesOf, rivalries, squadStats } from '../src/stats/synergy';
 import { build, match } from './fixtures';
 
@@ -135,5 +136,18 @@ describe('logros', () => {
     ]);
     const [deaths] = computeAwards([{ id: 'd', title: '', desc: '', low: true, value: (s) => s.avgD }], matches, friends);
     expect(deaths.ranking[0].f.alias).toBe('Beto');
+  });
+});
+
+describe('ítems', () => {
+  it('cuenta partidas que terminaron con Corazón de Acero (cualquiera de sus ids), una vez por partida', () => {
+    const { matches, friends } = build([
+      match([{ who: 'ana', items: [3084, 0, 0, 0, 0, 0, 0] }]),
+      match([{ who: 'ana', items: [223084, 3084, 0, 0, 0, 0, 0] }]), // dos veces en la misma partida = 1
+      match([{ who: 'ana', items: [3089, 0, 0, 0, 0, 0, 0] }]),
+      match([{ who: 'beto', items: [3084, 0, 0, 0, 0, 0, 0] }]),
+    ]);
+    expect(gamesWithItem(recordsOf(matches, friends[0]), HEARTSTEEL)).toBe(2);
+    expect(gamesWithItem(recordsOf(matches), HEARTSTEEL)).toBe(3);
   });
 });

@@ -474,3 +474,10 @@ a.champ-cell:hover { color: var(--text); text-decoration: underline; text-underl
 .sb-score { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 13px; }
 .team-h .sb-score { font-size: 12px; }
 .mate .medal { margin-left: -2px; }
+
+/* ---------- Ítem destacado (Récords) ---------- */
+.item-hero { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.item-hero img { width: 48px; height: 48px; border-radius: 8px; background: var(--bg); flex: none; }
+.item-hero .panel-title { margin-bottom: 2px; }
+.item-hero .muted { font-size: 13px; }
+.note { margin: 12px 0 0; font-size: 12px; color: var(--muted); }

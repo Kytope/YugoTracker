@@ -35,6 +35,7 @@ const AWARDS: Award[] = [
   { id: 'multis', title: 'Rey de las multis', desc: 'Más pentakills (desempata por quadras)', value: (s) => s.pentas * 1000 + s.quadras, fmt: (s) => `${plural(s.pentas, 'penta')} · ${plural(s.quadras, 'quadra')}` },
   { id: 'imparable', title: 'Imparable', desc: 'Racha de victorias más larga', value: (s) => s.best, fmt: (s) => `${s.best} seguidas` },
   { id: 'maldito', title: 'Maldito', desc: 'Racha de derrotas más larga', value: (s) => s.worstRun, fmt: (s) => `${s.worstRun} seguidas` },
+  { id: 'corazon', title: 'Corazón de acero', desc: 'Más partidas terminadas con Corazón de Acero', value: (s) => s.heartsteel, fmt: (s) => `${s.heartsteel} ${s.heartsteel === 1 ? 'partida' : 'partidas'}` },
   { id: 'noctambulo', title: 'Noctámbulo', desc: 'Más partidas entre las 00:00 y las 06:00', value: (s) => s.night, fmt: (s) => `${s.night} de madrugada` },
 ];
 

@@ -1,9 +1,10 @@
 import { state } from '../state';
 import { longestRun, recordsOf } from '../stats/aggregate';
+import { gamesWithItem, HEARTSTEEL } from '../stats/items';
 import type { Game, Rec } from '../types';
-import { champIcon, champName, splash } from '../ui/assets';
+import { champIcon, champName, itemImg, splash } from '../ui/assets';
 import { empty, who } from '../ui/components';
-import { ago, esc, short } from '../ui/format';
+import { ago, esc, pct, short } from '../ui/format';
 import { matchRow } from '../ui/match';
 
 interface RecordDef {
@@ -55,7 +56,38 @@ export function viewRecords(ms: Game[]): string {
         <h2 class="panel-title mt">Partida más larga</h2>
         <div class="matches">${matchRow(longest, null)}</div>
       </section>
-    </div>`;
+    </div>
+    ${heartsteelPanel(recs)}`;
+}
+
+/** Cuántas partidas terminó cada uno con Corazón de Acero (solo hay inventario final, no compras). */
+function heartsteelPanel(recs: Rec[]): string {
+  const total = gamesWithItem(recs, HEARTSTEEL);
+  const rows = state.friends
+    .map((f) => {
+      const mine = recs.filter((r) => r.p.friend === f);
+      return { f, n: gamesWithItem(mine, HEARTSTEEL), games: mine.length };
+    })
+    .filter((x) => x.games)
+    .sort((a, b) => b.n - a.n || b.n / b.games - a.n / a.games);
+  return `<section class="panel">
+    <div class="item-hero">
+      ${itemImg(HEARTSTEEL[0])}
+      <div>
+        <h2 class="panel-title">Corazón de Acero</h2>
+        <b class="rval">${total}</b> <span class="muted">partidas terminadas con él · ${pct(total / Math.max(1, recs.length))} de las partidas del grupo</span>
+      </div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>Jugador</th><th class="num">Partidas con él</th><th class="num">De sus partidas</th></tr></thead>
+      <tbody>${rows.map((x) => `<tr>
+        <td>${who(x.f)}</td>
+        <td class="num"><b>${x.n}</b></td>
+        <td class="num muted">${pct(x.n / x.games)}</td>
+      </tr>`).join('')}</tbody>
+    </table>
+    <p class="note">Cuenta las partidas en que terminó en el inventario: el historial no guarda compras, así que si se vendió antes del final no aparece.</p>
+  </section>`;
 }
 
 function recordCard(title: string, value: string, r: Rec, note?: string): string {
