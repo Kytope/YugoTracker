@@ -1,6 +1,7 @@
 import { state } from '../state';
-import { agg, byChamp, longestRun, minGames, recordsOf } from '../stats/aggregate';
+import { agg, byChamp, longestRun, recordsOf } from '../stats/aggregate';
 import { byAugment } from '../stats/augments';
+import { adjustedWr, baseWinrate, PRIORS } from '../stats/bayes';
 import { matesOf } from '../stats/synergy';
 import { activitySpan, byDay } from '../stats/timeline';
 import type { FriendPlayer, Friend, Game, Rec } from '../types';
@@ -70,9 +71,10 @@ function overview(f: Friend, ms: Game[]): string {
   const champs = byChamp(recs);
   const mates = matesOf(f, ms, state.friends);
   const trophies = awards(ms).filter((a) => a.ranking[0].f === f);
+  const base = baseWinrate(recordsOf(ms));
   const buddy = mates
-    .filter((x) => x.n >= minGames(ms))
-    .sort((a, b) => b.w / b.n - a.w / a.n || b.n - a.n)[0];
+    .filter((x) => x.n)
+    .sort((a, b) => adjustedWr(b.w, b.n, base, PRIORS.squad) - adjustedWr(a.w, a.n, base, PRIORS.squad) || b.n - a.n)[0];
 
   return `<div class="split">
     <aside class="side">
@@ -85,7 +87,7 @@ function overview(f: Friend, ms: Game[]): string {
           ${stat('Daño/min', Math.round(s.dpm), `${short(s.avgDmg)} por partida`)}
           ${stat('Mejor racha', longestRun(recs), 'victorias seguidas')}
           ${stat('Multikills', s.pentas + s.quadras, `${s.pentas} pentas · ${s.quadras} quadras`)}
-          ${stat('Puntaje promedio', s.avgScore.toFixed(1), 'de 10 por partida')}
+          ${stat('Puntaje promedio', s.avgScore.toFixed(1), '<a href="#/puntaje">¿cómo se calcula?</a>')}
           ${stat('Medallas', `${s.mvps} <small class="muted">MVP</small> · ${s.aces} <small class="muted">ACE</small> · ${s.worsts} <small class="muted">PEOR</small>`)}
         </div>
         ${buddy ? `<div class="buddy"><span class="muted">Mejor compañero</span> <a class="who" href="#/p/${buddy.g.slug}" style="--c:${buddy.g.color}">${esc(buddy.g.alias)}</a> <span class="good">${pct(buddy.w / buddy.n)}</span> <small class="muted">en ${buddy.n}</small></div>` : ''}
@@ -194,5 +196,5 @@ function champsTab(f: Friend, ms: Game[]): string {
 function augmentsTab(f: Friend, ms: Game[]): string {
   const augs = byAugment(recordsOf(ms, f));
   if (!augs.length) return '<p class="empty">Sin aumentos en este periodo.</p>';
-  return `<section class="panel flush"><div class="table-scroll">${augTable(augs, false)}</div></section>`;
+  return `<section class="panel flush"><div class="table-scroll">${augTable(augs, false, baseWinrate(recordsOf(ms)))}</div></section>`;
 }

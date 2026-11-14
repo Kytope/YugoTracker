@@ -1,5 +1,6 @@
 import type { Friend, Game, Rec } from '../types';
 import { agg, byChamp, longestRun, recordsOf, type ChampGroup, type Totals } from './aggregate';
+import { adjustedWr, baseWinrate, PRIORS } from './bayes';
 import { gamesWithItem, HEARTSTEEL } from './items';
 
 export interface PlayerExtras extends Totals {
@@ -17,9 +18,11 @@ export interface PlayerExtras extends Totals {
   worstRun: number;
   /** Partidas terminadas con Corazón de Acero. */
   heartsteel: number;
+  /** Winrate ajustado hacia el promedio del grupo (stats/bayes.ts). */
+  adjWr: number;
 }
 
-export function playerExtras(recs: Rec[]): PlayerExtras {
+export function playerExtras(recs: Rec[], base = 0.5): PlayerExtras {
   const s = agg(recs);
   const champs = byChamp(recs);
   let kp = 0;
@@ -42,6 +45,7 @@ export function playerExtras(recs: Rec[]): PlayerExtras {
     best: longestRun(recs, true),
     worstRun: longestRun(recs, false),
     heartsteel: gamesWithItem(recs, HEARTSTEEL),
+    adjWr: adjustedWr(s.wins, s.games, base, PRIORS.player),
   };
 }
 
@@ -64,8 +68,9 @@ export interface AwardResult<D extends AwardDef = AwardDef> {
 
 /** Ranking de cada premio entre los amigos con partidas en `ms`. */
 export function computeAwards<D extends AwardDef>(defs: D[], ms: Game[], friends: Friend[]): AwardResult<D>[] {
+  const base = baseWinrate(recordsOf(ms));
   const stats = friends
-    .map((f) => ({ f, s: playerExtras(recordsOf(ms, f)) }))
+    .map((f) => ({ f, s: playerExtras(recordsOf(ms, f), base) }))
     .filter((x) => x.s.games);
   const min = Math.min(5, Math.max(0, ...stats.map((x) => x.s.games)));
   return defs

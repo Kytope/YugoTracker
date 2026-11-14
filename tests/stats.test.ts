@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { agg, byChamp, longestRun, recordsOf, streak } from '../src/stats/aggregate';
 import { byAugment } from '../src/stats/augments';
 import { computeAwards } from '../src/stats/awards';
+import { adjustedWr, baseWinrate } from '../src/stats/bayes';
 import { gamesWithItem, HEARTSTEEL } from '../src/stats/items';
 import { bySquadSize, combos, matesOf, rivalries, squadStats } from '../src/stats/synergy';
 import { build, match } from './fixtures';
@@ -149,5 +150,21 @@ describe('ítems', () => {
     ]);
     expect(gamesWithItem(recordsOf(matches, friends[0]), HEARTSTEEL)).toBe(2);
     expect(gamesWithItem(recordsOf(matches), HEARTSTEEL)).toBe(3);
+  });
+});
+
+describe('winrate ajustado', () => {
+  it('pocas partidas quedan cerca del promedio; muchas, cerca del winrate real', () => {
+    const base = 0.5;
+    expect(adjustedWr(0, 0, base)).toBe(0.5);
+    expect(adjustedWr(2, 2, base)).toBeCloseTo(0.583, 3); // 2 de 2 → 58%, no 100%
+    expect(adjustedWr(15, 20, base)).toBeCloseTo(0.667, 3); // 15 de 20 → 67%
+    expect(adjustedWr(15, 20, base)).toBeGreaterThan(adjustedWr(2, 2, base));
+    expect(adjustedWr(150, 200, base)).toBeCloseTo(0.738, 3); // con mucha muestra se acerca al 75% real
+  });
+
+  it('el promedio base es el winrate por jugador-partida', () => {
+    const { matches } = build([match([{ who: 'ana' }, { who: 'beto' }], { blueWins: true }), match([{ who: 'ana' }], { blueWins: false })]);
+    expect(baseWinrate(recordsOf(matches))).toBeCloseTo(2 / 3, 5);
   });
 });

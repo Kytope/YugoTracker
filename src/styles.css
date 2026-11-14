@@ -481,3 +481,17 @@ a.champ-cell:hover { color: var(--text); text-decoration: underline; text-underl
 .item-hero .panel-title { margin-bottom: 2px; }
 .item-hero .muted { font-size: 13px; }
 .note { margin: 12px 0 0; font-size: 12px; color: var(--muted); }
+
+/* ---------- Página del puntaje ---------- */
+.prose { font-size: 14px; line-height: 1.6; }
+.prose p { margin: 0 0 10px; max-width: 70ch; }
+.prose ol, .prose ul { margin: 0 0 10px; padding-left: 20px; max-width: 70ch; }
+.prose li { margin-bottom: 6px; }
+.prose .medal { margin-right: 6px; }
+.weights td:first-child { white-space: normal; }
+.weights td:first-child small { display: block; margin: 0; }
+.wbar { width: 40%; }
+.wbar span { display: block; height: 8px; border-radius: 4px; background: var(--accent); }
+.wbar span.neg { background: var(--loss); }
+a.sb-score, .th-link { color: inherit; text-decoration: underline dotted; text-underline-offset: 3px; }
+a.sb-score:hover, .th-link:hover { color: var(--text); }

@@ -30,7 +30,7 @@ function focusBody(m: Game, p: FriendPlayer): string {
     </div>
     <div class="mkda"><b>${p.k} / <em>${p.d}</em> / ${p.a}</b><span>${ratio(p)} KDA</span></div>
     <div class="mstat"><b>${short(p.dmg)}</b><span>daño</span></div>
-    <div class="mstat mscore">${scoreTag(p.score)}${p.badge ? medal(p.badge) : '<span>puntaje</span>'}</div>
+    <div class="mstat mscore">${scoreTag(p.score, p.parts)}${p.badge ? medal(p.badge) : '<span>puntaje</span>'}</div>
     <div class="items">${itemImgs(p)}</div>
     <div class="augs">${augImgs(p)}</div>
     <div class="mates">${mates.map((q) => `<img class="ci xs" src="${champIcon(q)}" title="${esc(q.friend.alias)} · ${esc(champName(q))}" style="--c:${q.friend.color}" alt="">`).join('')}</div>
@@ -55,7 +55,7 @@ export function scoreboard(m: Game): string {
       <div class="sb-row team-h">
         <b class="sb-res">${ps[0].win ? 'Victoria' : 'Derrota'}</b>
         <span class="sb-kda">${sum('k')} / ${sum('d')} / ${sum('a')}</span>
-        <span class="sb-score">Puntaje</span>
+        <a class="sb-score" href="#/puntaje" title="¿Cómo se calcula?">Puntaje</a>
         <span class="sb-dmg">Daño</span>
         <span class="sb-gold">${short(sum('gold'))} oro</span>
       </div>
@@ -63,7 +63,7 @@ export function scoreboard(m: Game): string {
         <img class="ci sm" src="${champIcon(p)}" alt="">
         <div class="sb-name"><b>${esc(p.friend ? p.friend.alias : p.name)}</b><small>${esc(champName(p))} · nv ${p.level}</small></div>
         <div class="sb-kda"><b>${p.k}/${p.d}/${p.a}</b><small>${ratio(p)} KDA</small></div>
-        <div class="sb-score">${scoreTag(p.score)}${medal(p.badge)}</div>
+        <div class="sb-score">${scoreTag(p.score, p.parts)}${medal(p.badge)}</div>
         <div class="sb-dmg" title="Daño a campeones: ${p.dmg.toLocaleString('es')}"><b>${short(p.dmg)}</b><span class="bar"><i style="width:${(p.dmg / maxDmg) * 100}%"></i></span></div>
         <div class="sb-gold">${short(p.gold)}</div>
         <div class="augs sm">${augImgs(p)}</div>

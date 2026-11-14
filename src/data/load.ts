@@ -44,6 +44,7 @@ export function prepare(data: MatchData): { friends: Friend[]; matches: Game[] }
         friend: byPuuid.get(p.puuid) ?? byName.get(nameKey(p.name, p.tag)) ?? null,
         score: scores[i].score,
         badge: scores[i].badge,
+        parts: scores[i].parts,
       }));
       const mine = participants.filter((p): p is FriendPlayer => p.friend !== null);
       return { ...m, participants, mine };

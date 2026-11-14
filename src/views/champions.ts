@@ -1,5 +1,6 @@
 import { state } from '../state';
 import { byChamp, recordsOf, type ChampGroup } from '../stats/aggregate';
+import { adjustedWr, baseWinrate, PRIORS } from '../stats/bayes';
 import type { Game } from '../types';
 import { champName } from '../ui/assets';
 import { champCell, chip, searchBox, sortHeader } from '../ui/components';
@@ -15,7 +16,10 @@ const NUMERIC: Record<string, (c: ChampGroup) => number> = {
 
 export function viewChamps(ms: Game[]): string {
   const q = normalize(state.champQ);
-  const all = byChamp(recordsOf(ms));
+  const recs = recordsOf(ms);
+  const all = byChamp(recs);
+  const base = baseWinrate(recs);
+  const adj = (c: ChampGroup) => adjustedWr(c.s.wins, c.s.games, base, PRIORS.champion);
   const rows = all.filter((c) => !q || normalize(champName(c.p)).includes(q)).map((c) => ({
     ...c,
     players: state.friends
@@ -25,6 +29,7 @@ export function viewChamps(ms: Game[]): string {
   }));
   const sort = state.champSort;
   if (sort === 'name') rows.sort((a, b) => champName(a.p).localeCompare(champName(b.p)));
+  else if (sort === 'adj') rows.sort((a, b) => adj(b) - adj(a) || b.s.games - a.s.games);
   else {
     const key = NUMERIC[sort] ?? NUMERIC.games;
     rows.sort((a, b) => key(b) - key(a) || b.s.games - a.s.games);
@@ -36,11 +41,12 @@ export function viewChamps(ms: Game[]): string {
       ${searchBox('champQ', state.champQ, 'Buscar campeón…')}
     </div>
     ${rows.length ? `<div class="table-scroll"><table class="tbl">
-      <thead><tr>${th('name', 'Campeón')}${th('games', 'Partidas')}${th('wr', 'Winrate')}${th('kda', 'KDA')}${th('dmg', 'Daño prom.')}<th>Lo juegan</th></tr></thead>
+      <thead><tr>${th('name', 'Campeón')}${th('games', 'Partidas')}${th('wr', 'Winrate')}${th('adj', 'Ajustado')}${th('kda', 'KDA')}${th('dmg', 'Daño prom.')}<th>Lo juegan</th></tr></thead>
       <tbody>${rows.map((c) => `<tr>
         <td>${champCell(c.p)}</td>
         <td class="num">${c.s.games}</td>
         <td class="${wrClass(c.s.wr)}">${pct(c.s.wr)}</td>
+        <td class="${wrClass(adj(c))}" title="Winrate sumando ${PRIORS.champion} partidas con el promedio del grupo">${pct(adj(c))}</td>
         <td>${c.s.kda.toFixed(2)}</td>
         <td>${short(c.s.avgDmg)}</td>
         <td class="who-list">${c.players.map((x) => chip(x.f, x.n)).join('')}</td>

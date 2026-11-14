@@ -2,7 +2,7 @@
 
 import type { Participant } from '../shared/types';
 import { state } from '../state';
-import type { Badge } from '../stats/mvp';
+import type { Badge, ScorePart } from '../stats/mvp';
 import type { Friend } from '../types';
 import { champIcon, champName } from './assets';
 import { esc } from './format';
@@ -44,9 +44,20 @@ const MEDAL_TITLE: Record<Badge, string> = {
 export const medal = (badge: Badge | null): string =>
   badge ? `<span class="medal ${badge.toLowerCase()}" title="${MEDAL_TITLE[badge]}">${badge}</span>` : '';
 
-/** Puntaje 0–10 con color según el tramo. */
-export const scoreTag = (score: number): string =>
-  `<b class="score ${score >= 7 ? 'hi' : score >= 5 ? 'mid' : score < 3 ? 'lo' : ''}">${score.toFixed(1)}</b>`;
+export const PART_LABEL: Record<ScorePart, string> = {
+  dmg: 'Daño', kda: 'KDA', kp: 'Participación', tank: 'Tanqueo', heal: 'Curación', cc: 'Control', win: 'Victoria', deaths: 'Muertes',
+};
+
+/** Puntaje 0–10 con color según el tramo; con `parts`, el desglose aparece al pasar el mouse. */
+export function scoreTag(score: number, parts?: Record<ScorePart, number>): string {
+  const tip = parts
+    ? (Object.entries(parts) as [ScorePart, number][])
+        .filter(([, v]) => Math.abs(v) >= 0.05)
+        .map(([k, v]) => `${PART_LABEL[k]} ${v >= 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}`)
+        .join(' · ')
+    : '';
+  return `<b class="score ${score >= 7 ? 'hi' : score >= 5 ? 'mid' : score < 3 ? 'lo' : ''}"${tip ? ` title="${tip}"` : ''}>${score.toFixed(1)}</b>`;
+}
 
 export function multiBadge(p: Participant): string {
   const t = p.pentas ? 'PENTA' : p.quadras ? 'QUADRA' : p.triples ? 'TRIPLE' : '';

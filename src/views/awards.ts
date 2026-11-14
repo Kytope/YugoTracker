@@ -20,7 +20,7 @@ const AWARDS: Award[] = [
   { id: 'completo', title: 'El más completo', desc: 'Mejor puntaje promedio', avg: true, value: (s) => s.avgScore, fmt: (s) => `${s.avgScore.toFixed(1)} de puntaje` },
   { id: 'lastre', title: 'El lastre', desc: 'Más veces PEOR (el puntaje más bajo de la partida)', value: (s) => s.worsts, fmt: (s) => `${s.worsts} veces el peor` },
   { id: 'heroe', title: 'Héroe trágico', desc: 'Más veces ACE (el mejor del equipo que perdió)', value: (s) => s.aces, fmt: (s) => `${s.aces} veces ACE` },
-  { id: 'talisman', title: 'Talismán', desc: 'Mejor winrate', avg: true, value: (s) => s.wr, fmt: (s) => `${pct(s.wr)} · ${s.wins}V ${s.losses}D` },
+  { id: 'talisman', title: 'Talismán', desc: 'Mejor winrate (ajustado por cantidad de partidas)', avg: true, value: (s) => s.adjWr, fmt: (s) => `${pct(s.wr)} · ${s.wins}V ${s.losses}D · ajustado ${pct(s.adjWr)}` },
   { id: 'carnicero', title: 'Carnicero', desc: 'Más kills por partida', avg: true, value: (s) => s.avgK, fmt: (s) => `${s.avgK.toFixed(1)} kills` },
   { id: 'samaritano', title: 'Buen samaritano', desc: 'Más asistencias por partida', avg: true, value: (s) => s.avgA, fmt: (s) => `${s.avgA.toFixed(1)} asistencias` },
   { id: 'presente', title: 'Siempre presente', desc: 'Mayor participación en kills del equipo', avg: true, value: (s) => s.kp, fmt: (s) => `${pct(s.kp)} de participación` },

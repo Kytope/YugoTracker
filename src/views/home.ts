@@ -1,6 +1,7 @@
 import { state } from '../state';
-import { agg, byChamp, minGames, recordsOf, streak } from '../stats/aggregate';
+import { agg, byChamp, recordsOf, streak } from '../stats/aggregate';
 import { playerExtras, type PlayerExtras } from '../stats/awards';
+import { adjustedWr, baseWinrate, PRIORS } from '../stats/bayes';
 import { squadStats } from '../stats/synergy';
 import { activitySpan, byDay, byHour, groupRecord } from '../stats/timeline';
 import type { Friend, Game, Rec } from '../types';
@@ -39,9 +40,9 @@ export function viewHome(ms: Game[]): string {
   const rows = state.friends
     .map((f) => ({ f, recs: all.filter((r) => r.p.friend === f) }))
     .sort((a, b) => b.recs.length - a.recs.length);
+  const base = baseWinrate(all);
   const bestDuo = squadStats(ms, 2, state.friends)
-    .filter((e) => e.n >= minGames(ms))
-    .sort((a, b) => b.wr - a.wr || b.n - a.n)[0];
+    .sort((a, b) => adjustedWr(b.w, b.n, base, PRIORS.squad) - adjustedWr(a.w, a.n, base, PRIORS.squad) || b.n - a.n)[0];
 
   return `
     <section class="panel summary">
@@ -67,7 +68,7 @@ export function viewHome(ms: Game[]): string {
         <table class="tbl board">
           <thead><tr>
             <th class="num">#</th><th>Jugador</th><th>Main</th><th class="num">Partidas</th><th>Winrate</th>
-            <th>KDA</th><th class="num">Puntaje</th><th class="num">MVP</th><th class="num">Peor</th><th class="num">Daño</th><th>Últimas 10</th>
+            <th>KDA</th><th class="num"><a href="#/puntaje" class="th-link" title="¿Cómo se calcula?">Puntaje</a></th><th class="num">MVP</th><th class="num">Peor</th><th class="num">Daño</th><th>Últimas 10</th>
           </tr></thead>
           <tbody>${rows.map(({ f, recs }, i) => boardRow(i + 1, f, recs)).join('')}</tbody>
         </table>

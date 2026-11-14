@@ -55,6 +55,18 @@ describe('scoreMatch', () => {
     expect(badges.filter((b) => b === 'PEOR')).toHaveLength(1);
   });
 
+  it('el desglose suma el puntaje', () => {
+    const ps = [
+      line('a', 100, true, { k: 10, d: 4, a: 12, dmg: 40000, taken: 30000, heal: 8000, cc: 20 }),
+      line('b', 200, false, { k: 6, d: 9, a: 8, dmg: 25000, taken: 50000, heal: 2000, cc: 45 }),
+    ];
+    for (const r of scoreMatch(ps)) {
+      const sum = Object.values(r.parts).reduce((x, y) => x + y, 0);
+      expect(r.score).toBeCloseTo(Math.min(10, Math.max(0, sum)), 1);
+      expect(r.parts.deaths).toBeLessThanOrEqual(0);
+    }
+  });
+
   it('partida vacía o sin perdedores no rompe', () => {
     expect(scoreMatch([])).toEqual([]);
     const solo = scoreMatch([line('a', 100, true, { k: 0, d: 0, a: 0, dmg: 0, taken: 0, heal: 0, cc: 0 })]);

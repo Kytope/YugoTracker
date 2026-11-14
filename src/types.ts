@@ -2,7 +2,7 @@
 
 import type { Rarity } from './shared/augments';
 import type { Match, Participant, PlayerInfo } from './shared/types';
-import type { Badge } from './stats/mvp';
+import type { Badge, ScorePart } from './stats/mvp';
 
 export interface Friend extends PlayerInfo {
   slug: string;
@@ -18,6 +18,8 @@ export interface GamePlayer extends Participant {
   score: number;
   /** MVP = mejor del equipo ganador; ACE = mejor del perdedor. */
   badge: Badge | null;
+  /** Aporte de cada estadística al puntaje (para mostrar cómo se llegó a él). */
+  parts: Record<ScorePart, number>;
 }
 
 /** Participante que sí es del grupo. */

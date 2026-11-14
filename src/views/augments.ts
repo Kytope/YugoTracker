@@ -2,6 +2,7 @@ import { RARITY } from '../config';
 import { state } from '../state';
 import { recordsOf } from '../stats/aggregate';
 import { byAugment, type AugmentStat } from '../stats/augments';
+import { adjustedWr, baseWinrate, PRIORS } from '../stats/bayes';
 import type { Game, Rarity } from '../types';
 import { augImg, augInfo } from '../ui/assets';
 import { chip, empty, searchBox, segmented, sortHeader } from '../ui/components';
@@ -17,11 +18,14 @@ const NUMERIC: Record<string, (e: AugmentStat) => number> = {
 };
 
 export function viewAugments(ms: Game[]): string {
-  const list = byAugment(recordsOf(ms));
+  const recs = recordsOf(ms);
+  const list = byAugment(recs);
   if (!list.length) return empty('Sin aumentos en este periodo.');
-  const ranked = list.filter((e) => e.n >= MIN);
-  const best = [...ranked].sort((a, b) => b.wr - a.wr || b.n - a.n)[0];
-  const worst = [...ranked].sort((a, b) => a.wr - b.wr || b.n - a.n)[0];
+  // Mejor/peor por winrate ajustado: un 4 de 4 ya no le gana a un 11 de 12.
+  const base = baseWinrate(recs);
+  const adj = (e: AugmentStat) => adjustedWr(e.w, e.n, base, PRIORS.augment);
+  const best = [...list].sort((a, b) => adj(b) - adj(a) || b.n - a.n)[0];
+  const worst = [...list].sort((a, b) => adj(a) - adj(b) || b.n - a.n)[0];
   const prism = list.find((e) => augInfo(e.id).rarity === 'prism');
 
   // Filtro por texto (`augQ`) y por rareza (`augRarity`).
@@ -32,6 +36,7 @@ export function viewAugments(ms: Game[]): string {
   });
   const filtered = Boolean(q || state.augRarity);
   if (state.augSort === 'name') rows.sort((a, b) => augInfo(a.id).name.localeCompare(augInfo(b.id).name));
+  else if (state.augSort === 'adj') rows.sort((a, b) => adj(b) - adj(a) || b.n - a.n);
   else {
     const key = NUMERIC[state.augSort] ?? NUMERIC.n;
     rows.sort((a, b) => key(b) - key(a) || b.n - a.n);
@@ -42,8 +47,8 @@ export function viewAugments(ms: Game[]): string {
       <div class="duo-cards">
         ${augCard('Más elegido', list[0])}
         ${augCard('Prismático favorito', prism)}
-        ${augCard('Mejor winrate', best, `mínimo ${MIN} veces`)}
-        ${augCard('Peor winrate', worst, `mínimo ${MIN} veces`)}
+        ${augCard('Mejor winrate', best, `ajustado ${pct(adj(best))}`)}
+        ${augCard('Peor winrate', worst, `ajustado ${pct(adj(worst))}`)}
       </div>
     </section>
     <section class="panel">
@@ -54,7 +59,7 @@ export function viewAugments(ms: Game[]): string {
           ${searchBox('augQ', state.augQ, 'Buscar aumento…')}
         </div>
       </div>
-      ${rows.length ? `<div class="table-scroll">${augTable(rows, true)}</div>` : '<p class="empty">Ningún aumento coincide con la búsqueda.</p>'}
+      ${rows.length ? `<div class="table-scroll">${augTable(rows, true, base)}</div>` : '<p class="empty">Ningún aumento coincide con la búsqueda.</p>'}
     </section>`;
 }
 
@@ -68,11 +73,14 @@ function augCard(title: string, e: AugmentStat | undefined, note = ''): string {
   </div>`;
 }
 
-/** `full`: con orden por columnas y quién lo elige (página de aumentos); sin él, versión del perfil. */
-export function augTable(list: AugmentStat[], full: boolean): string {
+/**
+ * `full`: con orden por columnas y quién lo elige (página de aumentos); sin él, versión del perfil.
+ * `base`: winrate promedio hacia el que se ajusta la columna "Ajustado".
+ */
+export function augTable(list: AugmentStat[], full: boolean, base: number): string {
   const th = full ? sortHeader('augsort', state.augSort) : (_: string, label: string) => `<th>${label}</th>`;
   return `<table class="tbl">
-    <thead><tr>${th('name', 'Aumento')}${th('rarity', 'Rareza')}${th('n', 'Veces')}${th('wr', 'Winrate')}${full ? '<th>Lo eligen</th>' : ''}</tr></thead>
+    <thead><tr>${th('name', 'Aumento')}${th('rarity', 'Rareza')}${th('n', 'Veces')}${th('wr', 'Winrate')}${th('adj', 'Ajustado')}${full ? '<th>Lo eligen</th>' : ''}</tr></thead>
     <tbody>${list.map((e) => {
       const info = augInfo(e.id);
       return `<tr>
@@ -80,6 +88,7 @@ export function augTable(list: AugmentStat[], full: boolean): string {
       <td><span class="rarity ${info.rarity}">${RARITY[info.rarity]}</span></td>
       <td>${e.n}</td>
       <td class="${e.n >= MIN ? wrClass(e.wr) : ''}">${pct(e.wr)} <small class="muted">${e.w}V ${e.n - e.w}D</small></td>
+      <td class="${wrClass(adjustedWr(e.w, e.n, base, PRIORS.augment))}" title="Winrate sumando ${PRIORS.augment} partidas con el promedio del grupo">${pct(adjustedWr(e.w, e.n, base, PRIORS.augment))}</td>
       ${full ? `<td class="who-list">${[...e.who].sort((a, b) => b[1] - a[1]).map(([f, n]) => chip(f, n)).join('')}</td>` : ''}
     </tr>`;
     }).join('')}</tbody>

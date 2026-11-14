@@ -1,5 +1,6 @@
 import { state } from '../state';
 import { agg, minGames, recordsOf } from '../stats/aggregate';
+import { adjustedWr, baseWinrate, PRIORS } from '../stats/bayes';
 import { bySquadSize, rivalries, squadStats, type Squad } from '../stats/synergy';
 import type { Game } from '../types';
 import { profileIcon } from '../ui/assets';
@@ -13,9 +14,13 @@ export function viewSynergy(ms: Game[]): string {
   const min = minGames(ms);
   const duos = squadStats(ms, 2, state.friends);
   const trios = squadStats(ms, 3, state.friends);
+  // Mejor/peor por winrate ajustado: pocas partidas juntas no ganan por suerte.
+  const base = baseWinrate(recordsOf(ms));
+  const adj = (e: Squad) => adjustedWr(e.w, e.n, base, PRIORS.squad);
+  // Además del ajuste, las tarjetas destacadas piden un mínimo de partidas: un 2-0 no se destaca.
   const ranked = (list: Squad[]) => list.filter((e) => e.n >= min);
-  const best = (list: Squad[]) => ranked(list).sort((a, b) => b.wr - a.wr || b.n - a.n)[0];
-  const worst = (list: Squad[]) => ranked(list).sort((a, b) => a.wr - b.wr || b.n - a.n)[0];
+  const best = (list: Squad[]) => ranked(list).sort((a, b) => adj(b) - adj(a) || b.n - a.n)[0];
+  const worst = (list: Squad[]) => ranked(list).sort((a, b) => adj(a) - adj(b) || b.n - a.n)[0];
   const frequent = [...duos].sort((a, b) => b.n - a.n)[0];
   const byGames = (list: Squad[]) => [...list].sort((a, b) => b.n - a.n || b.wr - a.wr);
   const sizes = bySquadSize(ms);
@@ -24,12 +29,12 @@ export function viewSynergy(ms: Game[]): string {
   return `
     <section class="hero">
       <h1>Sinergias</h1>
-      <p class="muted">Partidas en el mismo equipo. Los mejores y peores combos exigen al menos ${min} partidas juntos.</p>
+      <p class="muted">Partidas en el mismo equipo. Los mejores y peores combos (mínimo ${min} partidas juntos) se ordenan por winrate ajustado: se suman ${PRIORS.squad} partidas con el promedio del grupo (${pct(base)}), para que pocas partidas no ganen por suerte.</p>
       <div class="duo-cards">
-        ${duoCard('Mejor dúo', best(duos))}
-        ${duoCard('Peor dúo', worst(duos))}
+        ${duoCard('Mejor dúo', best(duos), base)}
+        ${duoCard('Peor dúo', worst(duos), base)}
         ${duoCard('Dúo más frecuente', frequent)}
-        ${duoCard('Mejor trío', best(trios))}
+        ${duoCard('Mejor trío', best(trios), base)}
       </div>
     </section>
     <section class="panel">
@@ -70,14 +75,14 @@ export function viewSynergy(ms: Game[]): string {
     </div>`;
 }
 
-function duoCard(title: string, e: Squad | undefined): string {
+function duoCard(title: string, e: Squad | undefined, base?: number): string {
   if (!e) return `<div class="duo-card empty"><span class="label">${title}</span><p class="muted">Faltan partidas</p></div>`;
   return `<div class="duo-card">
     <span class="label">${title}</span>
     <div class="duo-faces">${e.friends.map((f) => `<img class="avatar" src="${profileIcon(f.icon)}" style="--c:${f.color}" alt="">`).join('')}</div>
     <div class="duo-names">${e.friends.map((f) => `<a href="#/p/${f.slug}">${esc(f.alias)}</a>`).join(' + ')}</div>
     <b class="rval">${pct(e.wr)}</b>
-    <span class="muted">${e.n} partidas · ${e.w}V ${e.n - e.w}D · KDA ${e.kda.toFixed(2)}</span>
+    <span class="muted">${e.n} partidas · ${e.w}V ${e.n - e.w}D · KDA ${e.kda.toFixed(2)}${base !== undefined ? ` · ajustado ${pct(adjustedWr(e.w, e.n, base, PRIORS.squad))}` : ''}</span>
   </div>`;
 }
 

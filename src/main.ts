@@ -20,6 +20,7 @@ import { viewHome } from './views/home';
 import { viewMatches } from './views/matches';
 import { viewPlayer } from './views/player';
 import { viewRecords } from './views/records';
+import { viewScore } from './views/score';
 import { viewSynergy } from './views/synergy';
 
 const app = document.getElementById('app')!;
@@ -31,6 +32,7 @@ const VIEWS: Record<string, (ms: Game[]) => string> = {
   aumentos: viewAugments,
   logros: viewAwards,
   records: viewRecords,
+  puntaje: viewScore,
 };
 
 init();
