@@ -1,1237 +1,1237 @@
 {
  "1001": {
-  "name": "Titan's Resolve",
+  "name": "Valor del Titán",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1002": {
-  "name": "Apex Inventor",
+  "name": "Inventor Supremo",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1004": {
-  "name": "Back To Basics",
+  "name": "De Vuelta a lo Básico",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1005": {
-  "name": "Wee Woo Wee Woo",
+  "name": "¡Wiii-wuu! ¡Wiii-wuu!",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1006": {
-  "name": "Blade Waltz",
+  "name": "Baile de Duelista",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1007": {
-  "name": "Blunt Force",
+  "name": "Fuerza Bruta",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1011": {
-  "name": "Can't Touch This",
+  "name": "A Que No Me Alcanzas",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1013": {
-  "name": "Celestial Body",
+  "name": "Cuerpo Celestial",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1015": {
-  "name": "Circle of Death",
+  "name": "Círculo de la Muerte",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1018": {
-  "name": "Courage of the Colossus",
+  "name": "Valor del Coloso",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1019": {
-  "name": "Dashing",
+  "name": "Destellante",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1020": {
-  "name": "Dawnbringer's Resolve",
+  "name": "Determinación del Portador del Amanecer",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1022": {
-  "name": "Deft",
+  "name": "Hábil",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1025": {
-  "name": "Dive Bomber",
+  "name": "Bombardero en Picada",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1026": {
-  "name": "Don't Blink",
+  "name": "No Parpadees",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1027": {
-  "name": "Earthwake",
+  "name": "Estela Terrestre",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1028": {
-  "name": "Erosion",
+  "name": "Erosión",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1029": {
-  "name": "Ethereal Weapon",
+  "name": "Arma Etérea",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1030": {
   "name": "Eureka",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1034": {
-  "name": "Veil of Warding",
+  "name": "Velo del Centinela",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1036": {
-  "name": "Firebrand",
+  "name": "Espada de Fuego",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1037": {
-  "name": "First-Aid Kit",
+  "name": "Botiquín",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1038": {
-  "name": "From Beginning To End",
+  "name": "De Principio a Fin",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1041": {
-  "name": "Goliath",
+  "name": "Goliat",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1044": {
-  "name": "Ice Cold",
+  "name": "Frío como el Hielo",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1045": {
-  "name": "Infernal Conduit",
+  "name": "Conducto Infernal",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1046": {
-  "name": "Infernal Soul",
+  "name": "Alma Infernal",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1047": {
-  "name": "It's Critical",
+  "name": "Es Crítico",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1048": {
-  "name": "Jeweled Gauntlet",
+  "name": "Guantelete Deslumbrante",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1051": {
-  "name": "Light 'Em Up!",
+  "name": "¡Haz que ardan!",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1053": {
-  "name": "Mad Scientist",
+  "name": "Científico Loco",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1054": {
-  "name": "Master of Duality",
+  "name": "Maestro de la Dualidad",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1056": {
-  "name": "Mind to Matter",
+  "name": "De Mente a Materia",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1057": {
-  "name": "Mountain Soul",
+  "name": "Alma de las Montañas",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1058": {
-  "name": "Mystic Punch",
+  "name": "Golpe Místico",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1060": {
-  "name": "Ocean Soul",
+  "name": "Alma de los Océanos",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1061": {
-  "name": "Ok Boomerang",
+  "name": "Ok Bumerán",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1062": {
-  "name": "Omni Soul",
+  "name": "Omni Alma",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1063": {
-  "name": "Outlaw's Grit",
+  "name": "Agallas del Forajido",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1067": {
-  "name": "Rejuvenation",
+  "name": "Rejuvenecimiento",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1068": {
-  "name": "Recursion",
+  "name": "Recursividad",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1071": {
-  "name": "Scopier Weapons",
+  "name": "De Largo Alcance",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1072": {
-  "name": "Searing Dawn",
+  "name": "Amanecer Abrasador",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1073": {
-  "name": "Shadow Runner",
+  "name": "Movimiento Sombrío",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1074": {
-  "name": "Shrink Ray",
+  "name": "Rayo Encogedor",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1076": {
-  "name": "Sonic Boom",
+  "name": "Explosión Sónica",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1077": {
-  "name": "Soul Siphon",
+  "name": "Sifón del Alma",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1079": {
-  "name": "Symphony of War",
+  "name": "Sinfonía de Guerra",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1080": {
-  "name": "Tank It Or Leave It",
+  "name": "Tanque o ¿Tan Qué?",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1081": {
-  "name": "Tap Dancer",
+  "name": "Bailarín de Tap",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1084": {
-  "name": "Thread the Needle",
+  "name": "Enhebrar la Aguja",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1087": {
-  "name": "Typhoon",
+  "name": "Tifón",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1088": {
-  "name": "Ultimate Revolution",
+  "name": "Revolución Definitiva",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1092": {
-  "name": "Vulnerability",
+  "name": "Vulnerabilidad",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1095": {
-  "name": "Windspeaker's Blessing",
+  "name": "Bendición del Portavientos",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1097": {
-  "name": "Witchful Thinking",
+  "name": "Mentalidad Mágica",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1098": {
-  "name": "With Haste",
+  "name": "Con Aceleración",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1103": {
-  "name": "Bread And Butter",
+  "name": "Pan y mantequilla",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1104": {
-  "name": "Minionmancer",
+  "name": "Súbditomante",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1105": {
-  "name": "Homeguard",
+  "name": "Milicia",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1112": {
-  "name": "Ultimate Unstoppable",
+  "name": "Definitiva Imparable",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1113": {
-  "name": "Skilled Sniper",
+  "name": "Francotirador Experto",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1115": {
-  "name": "Scopiest Weapons",
+  "name": "De Más Largo Alcance",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1116": {
-  "name": "Flashy",
+  "name": "Llamativo",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1118": {
-  "name": "Critical Healing",
+  "name": "Curación Crítica",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1129": {
-  "name": "Marksmage",
+  "name": "Tirador Mágico",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1133": {
-  "name": "Magic Missile",
+  "name": "Misil Mágico",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1134": {
-  "name": "Draw Your Sword",
+  "name": "Desenvaina tu Espada",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1136": {
-  "name": "Slap Around",
+  "name": "A Bofetadas",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1138": {
-  "name": "Goredrink",
+  "name": "Beber Sangre",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1141": {
-  "name": "All For You",
+  "name": "Todo para ti",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1149": {
-  "name": "Impassable",
+  "name": "Infranqueable",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1150": {
-  "name": "Bread And Jam",
+  "name": "Pan y mermelada",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1151": {
-  "name": "Bread and Cheese",
+  "name": "Pan y Queso",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1152": {
-  "name": "Steel Your Heart",
+  "name": "Endurece tu Corazón",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1154": {
-  "name": "Urf's Champion",
+  "name": "Campeón de Urf",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1156": {
-  "name": "Wooglet's Witchcap",
+  "name": "Sombrero de Wooglet",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1170": {
-  "name": "Scoped Weapons",
+  "name": "Armas con Mira",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1180": {
-  "name": "Big Brain",
+  "name": "Grandes jugadas",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1181": {
-  "name": "Heavy Hitter",
+  "name": "Puño Pesado",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1194": {
-  "name": "Fey Magic",
+  "name": "Magia Mística",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1195": {
-  "name": "Giant Slayer",
+  "name": "Verdugo de Gigantes",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1204": {
-  "name": "Stackosaurus Rex",
+  "name": "Acumulasaurio Rex",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1205": {
-  "name": "ADAPt",
+  "name": "Daño Habilidoso",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1206": {
-  "name": "escAPADe",
+  "name": "escaPHaDA",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1211": {
-  "name": "It's Killing Time",
+  "name": "Es Hora de Matar",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1214": {
-  "name": "Spin To Win",
+  "name": "Gira y Gana",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1220": {
-  "name": "Fan The Hammer",
+  "name": "Pistolero",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1225": {
-  "name": "Dual Wield",
+  "name": "Doble Empuñadura",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1237": {
-  "name": "Transmute: Gold",
+  "name": "Transmutar: Oro",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1238": {
-  "name": "Transmute: Prismatic",
+  "name": "Transmutar: Prismático",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1243": {
-  "name": "Transmute: Chaos",
+  "name": "Transmutar: Caos",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1301": {
-  "name": "Divine Intervention",
+  "name": "Intervención Divina",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1305": {
-  "name": "Leg Day",
+  "name": "Día de Pierna",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1308": {
-  "name": "FireFox",
+  "name": "Fuego Zorruno",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1310": {
-  "name": "Clown College",
+  "name": "Universidad de Payasos",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1311": {
-  "name": "Overflow",
+  "name": "Sobrecarga",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1314": {
-  "name": "Mighty Shield",
+  "name": "Escudo Poderoso",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1315": {
-  "name": "Swift and Safe",
+  "name": "Sano y salvo",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1318": {
-  "name": "Upgrade Zhonya's",
+  "name": "Mejorar Reloj de Arena de Zhonya",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1319": {
-  "name": "Upgrade Immolate",
+  "name": "Mejorar Inmolar",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1320": {
-  "name": "Upgrade Collector",
+  "name": "Mejorar Coleccionista",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1322": {
-  "name": "Get Excited!",
+  "name": "¡Comienza a Emocionarte!",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1323": {
-  "name": "Cruelty",
+  "name": "Crueldad",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1324": {
-  "name": "Protein Shake",
+  "name": "Batido de Proteínas",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1325": {
-  "name": "Glass Cannon",
+  "name": "Cañón de Cristal",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1326": {
-  "name": "Nightstalking",
+  "name": "Acecho Nocturno",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1328": {
-  "name": "Critical Rhythm",
+  "name": "Ritmo Crítico",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1329": {
-  "name": "Biggest Snowball Ever",
+  "name": "Gigantobola de Nieve",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1331": {
-  "name": "Empyrean Promise",
+  "name": "Promesa Empírea",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1332": {
-  "name": "Ominous Pact",
+  "name": "Pacto Ominoso",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1333": {
-  "name": "Escape Plan",
+  "name": "Plan de Escape",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1335": {
-  "name": "Goldrend",
+  "name": "Desgarraoro",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1336": {
-  "name": "Upgrade Infinity Edge",
+  "name": "Mejorar Filo del Infinito",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1337": {
-  "name": "King Me",
+  "name": "Soy el Rey",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1344": {
-  "name": "Final Form",
+  "name": "Forma Final",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1345": {
-  "name": "Spiritual Purification",
+  "name": "Purificación Espiritual",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1347": {
   "name": "Poltergeist",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1349": {
-  "name": "Ultimate Awakening",
+  "name": "Despertar Definitivo",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1353": {
-  "name": "Tank Engine",
+  "name": "Locomotora",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1356": {
-  "name": "Critical Missile",
+  "name": "Misil Crítico",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1358": {
   "name": "Pinball",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1361": {
-  "name": "Icathia's Fall",
+  "name": "Caída de Icathia",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1373": {
-  "name": "Shrink Engine",
+  "name": "Máquina Encogedora",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1375": {
-  "name": "Soul Eater",
+  "name": "Devorador de Almas",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1379": {
-  "name": "Upgrade Sword of Blossoming Dawn",
+  "name": "Mejora: Espada del Amanecer Floreciente",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1384": {
-  "name": "Donation",
+  "name": "Donación",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1386": {
-  "name": "Spin Me Right Round",
+  "name": "Todo me da Vueltas",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1388": {
-  "name": "Infinite Recursion",
+  "name": "Recursividad Infinita",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1389": {
-  "name": "Hand of Baron",
+  "name": "Mano del Barón",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1390": {
-  "name": "Phenomenal Evil",
+  "name": "Poder Maligno Fenomenal",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1392": {
-  "name": "Holy Snowball",
+  "name": "Santa Bola de Nieve",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1401": {
-  "name": "Growth Spurt",
+  "name": "Crecimiento Acelerado",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1402": {
-  "name": "Stats on Stats on Stats!",
+  "name": "¡Estadísticas sobre Estadísticas!",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1403": {
-  "name": "Stats on Stats!",
+  "name": "¡Estadísticas sobre Estadísticas!",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1404": {
-  "name": "Stats!",
+  "name": "¡Estadísticas!",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1413": {
-  "name": "Stuck In Here With Me",
+  "name": "Juntos por Desgracia",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1415": {
-  "name": "Twin Fire",
+  "name": "Cañones Gemelos",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1416": {
-  "name": "Hextech Soul",
+  "name": "Alma Hextech",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "1420": {
   "name": "Sonata",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "1421": {
-  "name": "Prom Queen",
+  "name": "Reina del Baile",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "1996": {
-  "name": "Upgrade Sheen",
+  "name": "Mejora de Brillo",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2004": {
-  "name": "Empowered By The Faithful",
+  "name": "Poder de los Seguidores",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2005": {
-  "name": "Triggered Inferno",
+  "name": "Provocación Infernal",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2006": {
-  "name": "Dropkick",
+  "name": "Patada Aérea",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2009": {
-  "name": "Zealot",
+  "name": "Fanático",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2010": {
-  "name": "Double Tap",
+  "name": "Toque Doble",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2016": {
-  "name": "Juiced",
+  "name": "A Tope",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2018": {
-  "name": "Purist - Caster",
+  "name": "Purista: Hechicero",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2024": {
-  "name": "Crit 'n Cast",
+  "name": "Críticos y Furiosos",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2026": {
-  "name": "Kill Secured",
+  "name": "Asesinato Asegurado",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2031": {
-  "name": "DropBear",
+  "name": "RescatiOso",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2032": {
-  "name": "Shark Bait",
+  "name": "Carnada para Tiburones",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2034": {
-  "name": "Shark Tempest",
+  "name": "Tormentiburón",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2042": {
   "name": "Hide on Bush",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2043": {
-  "name": "Nature is Healing",
+  "name": "La Naturaleza está Sanando",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2054": {
-  "name": "Tripleshot",
+  "name": "Disparo Triple",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2055": {
-  "name": "Multishot",
+  "name": "Multidisparo",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2062": {
-  "name": "Echo Cast",
+  "name": "Lanzamiento en Eco",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2063": {
-  "name": "Dimension Shift",
+  "name": "Cambio Dimensional",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2064": {
-  "name": "Quickstep",
+  "name": "Paso Veloz",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2065": {
   "name": "Terror",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2072": {
-  "name": "Spell Split",
+  "name": "Hechizo Dividido",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2073": {
-  "name": "Siphon",
+  "name": "Sifón",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2076": {
-  "name": "Stay Resolute",
+  "name": "Con Decisión",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2077": {
-  "name": "Ravenous Bind",
+  "name": "Vínculo Voraz",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2078": {
-  "name": "Chain Reaction",
+  "name": "Reacción en Cadena",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2080": {
-  "name": "Snowblast",
+  "name": "Nievomba",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2082": {
-  "name": "Our Healing",
+  "name": "Nuestra Curación",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2083": {
-  "name": "Tooth Fairy",
+  "name": "Ratón de los Dientes",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2087": {
-  "name": "Archmage",
+  "name": "Archimago",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2088": {
-  "name": "Snowday",
+  "name": "Día Nevado",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2089": {
-  "name": "Yowch, My Coins!",
+  "name": "¡Ay! ¡Mis Dineros!",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2091": {
-  "name": "Endless Decimation",
+  "name": "Diezmo Eterno",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2095": {
-  "name": "High Roller",
+  "name": "Derrochador",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2096": {
-  "name": "Lil' Extra Help",
+  "name": "Un Poco de Ayuda",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2098": {
-  "name": "En Passant",
+  "name": "Captura al Paso",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2099": {
-  "name": "Rite of Ascension",
+  "name": "Rito de Ascensión",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2100": {
-  "name": "Pursuit of Haste",
+  "name": "Buscando la Aceleración",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2102": {
-  "name": "Pressure Cooker",
+  "name": "Olla de Presión",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2103": {
-  "name": "From Downtown",
+  "name": "No supieron por dónde llegó",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2107": {
-  "name": "Hellbent",
+  "name": "Endemoniado",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2111": {
-  "name": "BONK!",
+  "name": "¡BONK!",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2115": {
-  "name": "Squishy Slappy Grab",
+  "name": "Manotazo Pegajoso",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2116": {
-  "name": "Pursuit of Power",
+  "name": "Buscando el Poder",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2118": {
-  "name": "Ult Bot",
+  "name": "Bot Definitivo",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2119": {
-  "name": "Overextender",
+  "name": "Sobreexigencia",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2123": {
-  "name": "Overloaded",
+  "name": "Sobrecargado",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2125": {
-  "name": "It's Go Time",
+  "name": "Llegó la Hora",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2127": {
-  "name": "Forged By The Master",
+  "name": "Forjado por el Maestro",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2128": {
-  "name": "Combusting Interest",
+  "name": "Interés en Llamas",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2129": {
-  "name": "Terrain'd",
+  "name": "Terraneitor",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2131": {
-  "name": "Don't Change the Channel",
+  "name": "No Cambies de Canal",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2132": {
-  "name": "Warlock Juicebox",
+  "name": "Juguito de Hechicería",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2133": {
-  "name": "Mercy's Strike",
+  "name": "Golpe Piadoso",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2134": {
-  "name": "Surge Field",
+  "name": "Campo de Sobrecarga",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2135": {
-  "name": "Pin Cushion",
+  "name": "Alfiletero",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2136": {
-  "name": "Trusty Weapon",
+  "name": "Arma Confiable",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2137": {
-  "name": "Pat On The Back",
+  "name": "Palmadita en la Espalda",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2138": {
-  "name": "Adaptive Ward",
+  "name": "Centinela Adaptable",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2139": {
-  "name": "Porcupine",
+  "name": "Puercoespín",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2140": {
-  "name": "Upgrade Ravenous Hydra",
+  "name": "Mejora: Hidra Voraz",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2141": {
-  "name": "Ultra Hydra",
+  "name": "Ultrahidra",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "2143": {
-  "name": "Upgrade Sundered Sky",
+  "name": "Mejora: Cielo Desgarrado",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "2144": {
-  "name": "Bolstered",
+  "name": "Protección",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "2157": {
-  "name": "Upgrade Death's Dance",
+  "name": "Mejora de Danza de la Muerte",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "3004": {
-  "name": "Get Jinxed",
+  "name": "Jinxéate",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3016": {
-  "name": "Third Times the Harm",
+  "name": "La Tercera es la Vencida",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "3018": {
-  "name": "Big Shot",
+  "name": "Pez Gordo",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "3036": {
-  "name": "Double Time",
+  "name": "Paso Redoblado",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3039": {
-  "name": "Salvation",
+  "name": "Salvación",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3048": {
-  "name": "Bouncing Bees",
+  "name": "Abejas Rebotantes",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "3049": {
-  "name": "Armored Impact",
+  "name": "Impacto Blindado",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3051": {
-  "name": "Blue Barrier",
+  "name": "Barrera Azul",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "3052": {
-  "name": "Hands off the Talent",
+  "name": "No Toques al Artista",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "3053": {
-  "name": "Mosh Monster",
+  "name": "Monstruo del Pogo",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "3055": {
-  "name": "Ultimate Recursion",
+  "name": "Recursividad Definitiva",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "3059": {
-  "name": "No Mana, No Problem",
+  "name": "Sin Maná, Sin Problemas",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "3060": {
-  "name": "One Hit Wonder",
+  "name": "Artista de un solo éxito",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3063": {
-  "name": "Gift of the Drowned",
+  "name": "Don de los Ahogados",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "3071": {
-  "name": "Brass Blast",
+  "name": "Estallido de Latón",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3075": {
-  "name": "Recoil",
+  "name": "Retroceso",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3078": {
-  "name": "The Boom and the Bass",
+  "name": "Que Truene la Bocina",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3079": {
-  "name": "Totentanz",
+  "name": "Danse Macabre",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "3081": {
-  "name": "Weapon of Destiny",
+  "name": "Arma del Destino",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3085": {
-  "name": "Flow of Spirit",
+  "name": "Flujo Espiritual",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "3086": {
-  "name": "BEES!!!",
+  "name": "¡¡¡ABEJAS!!!",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3088": {
-  "name": "CRIMSON COBALT",
+  "name": "COBALTO CARMESÍ",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3094": {
-  "name": "Lich Brain",
+  "name": "Cerebro de Liche",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "3116": {
   "name": "Take'em Down Down Down",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3118": {
-  "name": "Arcane Axiom",
+  "name": "Axioma Arcano",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3121": {
-  "name": "Fruitify",
+  "name": "Frutificar",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "3123": {
-  "name": "Jeweled Bracelet",
+  "name": "Brazalete Deslumbrante",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3129": {
-  "name": "Sap Magic",
+  "name": "Extracción de Magia",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3131": {
-  "name": "Still Here",
+  "name": "Sigo Aquí",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3132": {
-  "name": "Heavy Is The Crown",
+  "name": "Pesada es la Corona",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3134": {
-  "name": "Lonely Warrior",
+  "name": "Guerrero Solitario",
   "rarity": "silver",
-  "es": false
+  "es": true
  },
  "3149": {
-  "name": "Group Hug",
+  "name": "Abrazo Grupal",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "3150": {
-  "name": "Upgrade Stormsurge",
+  "name": "Descarga Tormentosa Mejorada",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3159": {
-  "name": "RISE",
+  "name": "ASCIENDE",
   "rarity": "prism",
-  "es": false
+  "es": true
  },
  "3163": {
-  "name": "Enchanting Butterflies",
+  "name": "Mariposas Mágicas",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3170": {
   "name": "HEAVY",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3171": {
   "name": "POWER",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3172": {
   "name": "THRASH",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3173": {
   "name": "DOOM",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "3176": {
   "name": "Pentakill",
   "rarity": "gold",
-  "es": false
+  "es": true
  },
  "12317": {
-  "name": "Pandora's Box",
+  "name": "Caja de Pandora",
   "rarity": "prism",
-  "es": false
+  "es": true
  }
 }
